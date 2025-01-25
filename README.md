@@ -1,5 +1,7 @@
 # Webmaster442.WindowsTerminal
 
+![logo](Img/128x128.png)
+
 A Windows Terminal Interaction libary
 
 ## Features
