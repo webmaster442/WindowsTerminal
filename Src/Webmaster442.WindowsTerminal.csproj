@@ -17,10 +17,16 @@
     <RepositoryUrl>https://github.com/webmaster442/WindowsTerminal</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>windows;terminal;fragment;extension;ANSI;Escape;Codes;Nerd;Fonts;DECPS</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\Img\128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
