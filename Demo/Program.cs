@@ -1,0 +1,130 @@
+﻿
+
+
+using Webmaster442.WindowsTerminal;
+
+TerminalFormattedStringBuilder builder = new();
+
+BasicFormatting();
+
+WaitForKeyPress();
+
+Colors256Demo();
+
+WaitForKeyPress();
+
+Colors24BitDemo();
+
+WaitForKeyPress();
+
+ProgrssbarDemo();
+
+WaitForKeyPress();
+
+MusicDemo();
+
+void MusicDemo()
+{
+    Console.WriteLine("Music demo");
+    MusicStringBuilder music = new();
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.C5);
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.D5);
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.E5);
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.F5);
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.G5);
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.A5);
+    music.AddNote(6, TimeSpan.FromSeconds(1), Note.B5);
+    Console.Write(music.ToString());
+}
+
+void WaitForKeyPress()
+{
+    Console.WriteLine("Press any key to continue...");
+    Console.ReadKey();
+    Console.Clear();
+}
+
+void BasicFormatting()
+{
+    Console.WriteLine(builder
+        .New()
+        .WithItalic()
+        .AppendLine("This text is italic")
+        .ResetFormat());
+    Console.WriteLine(builder
+        .New()
+        .WithUnderline()
+        .AppendLine("This text is underlined")
+        .ResetFormat());
+    Console.WriteLine(builder
+        .New()
+        .WithInverse()
+        .AppendLine("This text is inversed")
+        .ResetFormat());
+    Console.WriteLine(builder
+        .New()
+        .WithBold()
+        .AppendLine("This text is bold")
+        .ResetFormat());
+}
+
+void Colors256Demo()
+{
+    Console.WriteLine("256 colors demo");
+    for (int i = 0; i < 16; i++)
+    {
+        for (int j = 0; j < 16; j++)
+        {
+            builder
+                .WithForegroundColor(i * 16 + j)
+                .Append("█");
+        }
+        builder.AppendLine();
+    }
+    builder.ResetFormat();
+    Console.Write(builder.ToString());
+}
+
+void Colors24BitDemo()
+{
+    Console.WriteLine("24 bit colors demo");
+
+    Console.WriteLine(builder
+        .New()
+        .WithBackgroundColor("#e2eef9")
+        .WithForegroundColor("#000000")
+        .AppendLine("24 bit color")
+        .ResetFormat()
+        .ToString());
+}
+
+void ProgrssbarDemo()
+{
+    WindowsTerminal.SetWindowTitle("Progressbar demo");
+
+    Console.WriteLine("Normal progress");
+    int done = 0;
+    for (int i=0; i<50; i++)
+    {
+        WindowsTerminal.SetProgressbar(ProgressbarState.Default, i);
+        Thread.Sleep(50);
+        done += 2;
+    }
+
+    Console.WriteLine("Error 50% progress");
+    WindowsTerminal.SetProgressbar(ProgressbarState.Error, 50);
+    Thread.Sleep(3000);
+
+    Console.WriteLine("Indeterminate progress");
+    WindowsTerminal.SetProgressbar(ProgressbarState.Indeterminate, 0);
+    Thread.Sleep(3000);
+
+    Console.WriteLine("Warning 75% progress");
+    WindowsTerminal.SetProgressbar(ProgressbarState.Warning, 75);
+    Thread.Sleep(3000);
+
+    Console.WriteLine("Hidden progress");
+    WindowsTerminal.SetProgressbar(ProgressbarState.Hidden, 0);
+
+    WindowsTerminal.SetWindowTitle("");
+}
