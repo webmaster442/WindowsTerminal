@@ -1,6 +1,6 @@
 # Webmaster442.WindowsTerminal
 
-![logo](Img/128x128.png)
+![logo](https://raw.githubusercontent.com/webmaster442/WindowsTerminal/main/Img/128x128.png)
 
 A Windows Terminal Interaction libary
 
