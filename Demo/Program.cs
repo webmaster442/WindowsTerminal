@@ -23,6 +23,11 @@ WaitForKeyPress();
 
 MusicDemo();
 
+await FragmentInstallDemo();
+
+ShellIntegrationDemo();
+
+
 void MusicDemo()
 {
     Console.WriteLine("Music demo");
@@ -93,9 +98,9 @@ void Colors24BitDemo()
         .New()
         .WithBackgroundColor("#e2eef9")
         .WithForegroundColor("#000000")
+        .WithBold()
         .AppendLine("24 bit color")
-        .ResetFormat()
-        .ToString());
+        .ResetFormat());
 }
 
 void ProgrssbarDemo()
@@ -127,4 +132,41 @@ void ProgrssbarDemo()
     WindowsTerminal.SetProgressbar(ProgressbarState.Hidden, 0);
 
     WindowsTerminal.SetWindowTitle("");
+}
+
+async Task FragmentInstallDemo()
+{
+    const string appName = "Webmaster442.WindowsTerminalDemo";
+    const string fragmentName = "demoApp.json";
+    if (!WindowsTerminal.FragmentExtensions.IsFragmentInstalled(appName, fragmentName))
+    {
+        bool result = await WindowsTerminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, new TerminalFragment()
+        {
+            Profiles = 
+            {
+                new TerminalProfile
+                {
+                    Name = "Webmaster442.WindowsTerminalDemo",
+                    CommandLine = Path.Combine(AppContext.BaseDirectory, "Demo.exe"),
+                    StartingDirectory = EnvironmentVariables.HomePath,
+                }
+            }
+        });
+    }
+    else
+    {
+        Console.WriteLine("Fragment already installed");
+    }
+}
+
+void ShellIntegrationDemo()
+{
+    WindowsTerminal.SetWindowTitle("Shell integration demo");
+    WindowsTerminal.ShellIntegration.StartOfPrompt();
+    Console.Write("Enter a command >");
+    WindowsTerminal.ShellIntegration.CommandStart();
+    string? command = Console.ReadLine();
+    WindowsTerminal.ShellIntegration.CommandExecuted();
+    Console.WriteLine($"Command: {command}");
+    WindowsTerminal.ShellIntegration.CommandFinished(0);
 }

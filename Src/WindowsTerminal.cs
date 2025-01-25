@@ -20,60 +20,102 @@ public static class WindowsTerminal
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         };
-        options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>());
+        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>());
         return options;
     }
 
     /// <summary>
-    /// Get all local fragment files
+    /// Fragment extension management
     /// </summary>
-    /// <returns>an array of terminal json fragments present in the LocalApplicationData</returns>
-    public static string[] GetLocalFragments()
-        => Directory.GetFiles(_localFragments, "*.json", SearchOption.AllDirectories);
-
-    /// <summary>
-    /// Try to install a terminal fragment in the LocalApplicationData
-    /// </summary>
-    /// <param name="appName">App name</param>
-    /// <param name="fragmentName">fragment json file name</param>
-    /// <param name="terminalFragment">terminal fragment data</param>
-    /// <returns>true, if installation was successfull</returns>
-    public static async Task<bool> TryInstallFragmentAsync(string appName, string fragmentName, TerminalFragment terminalFragment)
+    public static class FragmentExtensions
     {
-        try
+
+        /// <summary>
+        /// Get all local fragment files
+        /// </summary>
+        /// <returns>an array of terminal json fragments present in the LocalApplicationData</returns>
+        public static string[] GetLocalFragments()
+            => Directory.GetFiles(_localFragments, "*.json", SearchOption.AllDirectories);
+
+        /// <summary>
+        /// Returns true, if a JSON Fragment extextension is installed
+        /// </summary>
+        /// <param name="appName">App name that installs the fragment</param>
+        /// <param name="fragmentName">fragment json name</param>
+        /// <returns>True, if extension is installed</returns>
+        public static bool IsFragmentInstalled(string appName, string fragmentName)
+            => File.Exists(Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json")));
+
+        /// <summary>
+        /// Try to remove a terminal fragment from the LocalApplicationData
+        /// </summary>
+        /// <param name="appName">App name that installed the fragment</param>
+        /// <param name="fragmentName">fragment json name</param>
+        /// <returns>true, if fragment was removed. False if remove failed or fragment does not exist</returns>
+        public static bool TryRemoveFragment(string appName, string fragmentName)
         {
-            var fragmentFolder = Path.Combine(_localFragments, appName);
-            if (!Directory.Exists(fragmentFolder))
+            try
             {
-                Directory.CreateDirectory(fragmentFolder);
+                var filePath = Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    return true;
+                }
+                return false;
             }
-            var filePath = Path.Combine(fragmentFolder, Path.ChangeExtension(fragmentName, ".json"));
-            using var stream = File.Create(filePath);
-            await JsonSerializer.SerializeAsync(stream, terminalFragment, _serializerOptions);
-            return true;
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        catch (Exception)
+
+        /// <summary>
+        /// Try to install a terminal fragment in the LocalApplicationData
+        /// </summary>
+        /// <param name="appName">App name</param>
+        /// <param name="fragmentName">fragment json file name</param>
+        /// <param name="terminalFragment">terminal fragment data</param>
+        /// <returns>true, if installation was successfull</returns>
+        public static async Task<bool> TryInstallFragmentAsync(string appName, string fragmentName, TerminalFragment terminalFragment)
         {
-            return false;
+            try
+            {
+                var fragmentFolder = Path.Combine(_localFragments, appName);
+                if (!Directory.Exists(fragmentFolder))
+                {
+                    Directory.CreateDirectory(fragmentFolder);
+                }
+                var filePath = Path.Combine(fragmentFolder, Path.ChangeExtension(fragmentName, ".json"));
+                using var stream = File.Create(filePath);
+                await JsonSerializer.SerializeAsync(stream, terminalFragment, _serializerOptions);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Read a terminal fragment from the LocalApplicationData
+        /// </summary>
+        /// <param name="appName">App name</param>
+        /// <param name="fragmentName">fragment json file name</param>
+        /// <returns>Terminal fragment data</returns>
+        public static async Task<TerminalFragment?> ReadFragmentAsync(string appName, string fragmentName)
+        {
+            var filePath = Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
+            using var stream = File.OpenRead(filePath);
+            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, _serializerOptions);
         }
     }
 
-    /// <summary>
-    /// Read a terminal fragment from the LocalApplicationData
-    /// </summary>
-    /// <param name="appName">App name</param>
-    /// <param name="fragmentName">fragment json file name</param>
-    /// <returns>Terminal fragment data</returns>
-    public static async Task<TerminalFragment?> ReadFragmentAsync(string appName, string fragmentName)
-    {
-        var filePath = Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
-        if (!File.Exists(filePath))
-        {
-            return null;
-        }
-        using var stream = File.OpenRead(filePath);
-        return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, _serializerOptions);
-    }
 
     /// <summary>
     /// Set the progressbar state

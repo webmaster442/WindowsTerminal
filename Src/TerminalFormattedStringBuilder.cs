@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -263,6 +264,45 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder AppendLine()
     {
         _builder.AppendLine();
+        return this;
+    }
+
+    /// <summary>
+    ///  Appends the string returned by processing a composite format string, which contains zero or more format items,
+    ///  to this instance. Each format item is replaced by  the string representation of a corresponding argument in a parameter array.
+    /// </summary>
+    /// <param name="format">A composite format string.</param>
+    /// <param name="args">An array of objects to format.</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendFormat([StringSyntax("CompositeFormat")] string format, params object?[] args)
+    {
+        _builder.AppendFormat(format, args);
+        return this;
+    }
+
+    /// <summary>
+    /// Concatenates and appends the members of a collection, using the specified separator between each member.
+    /// </summary>
+    /// <typeparam name="T">The type of the members of values.</typeparam>
+    /// <param name="separator">The character to use as a separator. separator is included in the concatenated and appended strings only if values has more than one element.</param>
+    /// <param name="values">A collection that contains the objects to concatenate and append to the current TerminalFormattedStringBuilder</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendJoin<T>(char separator, IEnumerable<T> values)
+    {
+        _builder.AppendJoin(separator, values);
+        return this;
+    }
+
+    /// <summary>
+    /// Concatenates and appends the members of a collection, using the specified separator between each member.
+    /// </summary>
+    /// <typeparam name="T">The type of the members of values.</typeparam>
+    /// <param name="separator">The string to use as a separator. separator is included in the concatenated and appended strings only if values has more than one element.</param>
+    /// <param name="values">A collection that contains the objects to concatenate and append to the current TerminalFormattedStringBuilder</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendJoin<T>(string? separator, IEnumerable<T> values)
+    {
+        _builder.AppendJoin(separator, values);
         return this;
     }
 
