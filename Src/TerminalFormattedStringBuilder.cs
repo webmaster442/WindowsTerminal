@@ -12,6 +12,30 @@ public sealed class TerminalFormattedStringBuilder
 {
     private readonly StringBuilder _builder;
 
+    private static TerminalColor ToTerminalColor(ConsoleColor consoleColor)
+    {
+        return consoleColor switch
+        {
+            ConsoleColor.Black => TerminalColor.Black,
+            ConsoleColor.DarkRed => TerminalColor.Red,
+            ConsoleColor.DarkGreen => TerminalColor.Green,
+            ConsoleColor.DarkYellow => TerminalColor.Yellow,
+            ConsoleColor.DarkBlue => TerminalColor.Blue,
+            ConsoleColor.DarkMagenta => TerminalColor.Magenta,
+            ConsoleColor.DarkCyan => TerminalColor.Cyan,
+            ConsoleColor.Gray => TerminalColor.White,
+            ConsoleColor.DarkGray => TerminalColor.BrightBlack,
+            ConsoleColor.Red => TerminalColor.BrightRed,
+            ConsoleColor.Green => TerminalColor.BrightGreen,
+            ConsoleColor.Yellow => TerminalColor.BrightYellow,
+            ConsoleColor.Blue => TerminalColor.BrightBlue,
+            ConsoleColor.Magenta => TerminalColor.BrightMagenta,
+            ConsoleColor.Cyan => TerminalColor.BrightCyan,
+            ConsoleColor.White => TerminalColor.BrightWhite,
+            _ => throw new UnreachableException(),
+        };
+    }
+
     private static string ToForegroundColor(TerminalColor color)
     {
         return color switch
@@ -110,6 +134,15 @@ public sealed class TerminalFormattedStringBuilder
     }
 
     /// <summary>
+    /// Set foreground color to a standard color
+    /// </summary>
+    /// <param name="color">Color to use</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithForegroundColor(ConsoleColor color)
+        => WithForegroundColor(ToTerminalColor(color));
+
+
+    /// <summary>
     /// Set foreground color to a 24 bit RGB color
     /// </summary>
     /// <param name="rgbHex">color in hex format, like #ffffff</param>
@@ -157,6 +190,14 @@ public sealed class TerminalFormattedStringBuilder
         _builder.Append(ToBackgroundColor(color));
         return this;
     }
+
+    /// <summary>
+    /// Set background color to a standard color
+    /// </summary>
+    /// <param name="color">Color to use</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithBackgroundColor(ConsoleColor color)
+        => WithBackgroundColor(ToTerminalColor(color));
 
     /// <summary>
     /// Set background color to a 24 bit RGB color
@@ -243,6 +284,40 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder Append(string text)
     {
         _builder.Append(text);
+        return this;
+    }
+
+    /// <summary>
+    ///  Appends the string representation of a specified System.Char object to this instance.
+    /// </summary>
+    /// <param name="chr">The UTF-16-encoded code unit to append.</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(char chr)
+    {
+        _builder.Append(chr);
+        return this;
+    }
+
+    /// <summary>
+    /// Appends a specified number of copies of the string representation of a Unicode character to this instance.
+    /// </summary>
+    /// <param name="chr">The UTF-16-encoded code unit to append.</param>
+    /// <param name="repeatCount">The number of times to append chr.</param></param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(char chr, int repeatCount)
+    {
+        _builder.Append(chr, repeatCount);
+        return this;
+    }
+
+    /// <summary>
+    /// Appends the string representation of a specified object to this instance.
+    /// </summary>
+    /// <param name="obj">object to append</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(object? obj)
+    {
+        _builder.Append(obj);
         return this;
     }
 

@@ -19,6 +19,7 @@
     <PackageTags>windows;terminal;fragment;extension;ANSI;Escape;Codes;Nerd;Fonts;DECPS</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
