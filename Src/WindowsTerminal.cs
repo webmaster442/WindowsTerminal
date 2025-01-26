@@ -20,8 +20,8 @@ public static class WindowsTerminal
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         };
-        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>());
-        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>());
+        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>(JsonNamingPolicy.CamelCase));
+        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>(JsonNamingPolicy.CamelCase));
         return options;
     }
 

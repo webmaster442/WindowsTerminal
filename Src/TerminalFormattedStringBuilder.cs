@@ -302,7 +302,7 @@ public sealed class TerminalFormattedStringBuilder
     /// Appends a specified number of copies of the string representation of a Unicode character to this instance.
     /// </summary>
     /// <param name="chr">The UTF-16-encoded code unit to append.</param>
-    /// <param name="repeatCount">The number of times to append chr.</param></param>
+    /// <param name="repeatCount">The number of times to append chr.</param>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
     public TerminalFormattedStringBuilder Append(char chr, int repeatCount)
     {
