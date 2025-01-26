@@ -4,6 +4,17 @@
 
 A Windows Terminal Interaction libary
 
+## Installation
+
+Via NuGet: https://www.nuget.org/packages/Webmaster442.WindowsTerminal
+
+
+Via .NET Cli:
+
+```bash
+dotnet add package Webmaster442.WindowsTerminal
+```
+
 ## Features
 
 **Install a terminal Fragment extension**
