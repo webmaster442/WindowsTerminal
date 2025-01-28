@@ -5,7 +5,16 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTerminal", "Src\WindowsTerminal\Webmaster442.WindowsTerminal.csproj", "{3FFF5ADA-3CAA-402B-91C0-2F6C4A18676E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsTerminal.Sixel.ImageSharp", "Src\WindowsTerminal.Sixel.ImageSharp\WindowsTerminal.Sixel.ImageSharp.csproj", "{CACEDB72-0BA5-475C-A5D4-808F78EFBA78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTerminal.Sixel.ImageSharp", "Src\WindowsTerminal.Sixel.ImageSharp\Webmaster442.WindowsTerminal.Sixel.ImageSharp.csproj", "{CACEDB72-0BA5-475C-A5D4-808F78EFBA78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{963F43DE-9B61-40C0-B811-570263347CC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{069CEB42-56DE-47E8-B7B6-7566F8030FE7}"
+	ProjectSection(SolutionItems) = preProject
+		Changelog.md = Changelog.md
+		README.md = README.md
+		WindowsTerminal.sln.licenseheader = WindowsTerminal.sln.licenseheader
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +30,10 @@ Global
 		{CACEDB72-0BA5-475C-A5D4-808F78EFBA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CACEDB72-0BA5-475C-A5D4-808F78EFBA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CACEDB72-0BA5-475C-A5D4-808F78EFBA78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963F43DE-9B61-40C0-B811-570263347CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963F43DE-9B61-40C0-B811-570263347CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963F43DE-9B61-40C0-B811-570263347CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963F43DE-9B61-40C0-B811-570263347CC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

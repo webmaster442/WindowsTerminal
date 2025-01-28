@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\Webmaster442.WindowsTerminal.csproj" />
+    <Content Include="..\Img\512x512.png" Link="512x512.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Src\WindowsTerminal.Sixel.ImageSharp\Webmaster442.WindowsTerminal.Sixel.ImageSharp.csproj" />
+    <ProjectReference Include="..\Src\WindowsTerminal\Webmaster442.WindowsTerminal.csproj" />
   </ItemGroup>
 
 </Project>

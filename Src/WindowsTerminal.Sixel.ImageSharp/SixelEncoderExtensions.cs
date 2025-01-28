@@ -3,9 +3,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
 
-using Webmaster442.WindowsTerminal;
-
-namespace WindowsTerminal.Sixel.ImageSharp;
+namespace Webmaster442.WindowsTerminal.Sixel.ImageSharp;
 
 /// <summary>
 /// Sixel encoder extensions

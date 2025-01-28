@@ -1,9 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-using Webmaster442.WindowsTerminal;
-
-namespace WindowsTerminal.Sixel.ImageSharp;
+namespace Webmaster442.WindowsTerminal.Sixel.ImageSharp;
 
 internal sealed class ImageSharpImageData : IImageData
 {

@@ -1,32 +1,42 @@
-﻿
-
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 using Webmaster442.WindowsTerminal;
+using Webmaster442.WindowsTerminal.Sixel.ImageSharp;
 
 TerminalFormattedStringBuilder builder = new();
 
-//BasicFormatting();
+BasicFormatting();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//Colors256Demo();
+Colors256Demo();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//Colors24BitDemo();
+Colors24BitDemo();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//ProgrssbarDemo();
+ProgrssbarDemo();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//MusicDemo();
+MusicDemo();
 
 await FragmentInstallDemo();
 
-//ShellIntegrationDemo();
+ShellIntegrationDemo();
 
+SixelDemo();
+
+void SixelDemo()
+{
+    var encoder = new SixelEncoder();
+    var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
+    var img = Image.Load<Rgba32>(imagePath);
+    Console.Write(encoder.Encode(img));
+}
 
 void MusicDemo()
 {
