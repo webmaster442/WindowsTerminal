@@ -7,8 +7,17 @@ using Webmaster442.WindowsTerminal;
 
 namespace WindowsTerminal.Sixel.ImageSharp;
 
+/// <summary>
+/// Sixel encoder extensions
+/// </summary>
 public static class SixelEncoderExtensions
 {
+    /// <summary>
+    /// Encodes an image to a sixel string
+    /// </summary>
+    /// <param name="encoder">Sixel encoder that is extended</param>
+    /// <param name="image">An RGB image</param>
+    /// <returns>Sixel encoded string</returns>
     public static string Encode(this SixelEncoder encoder, Image<Rgba32> image)
     {
         int cellWidth = Console.WindowWidth;

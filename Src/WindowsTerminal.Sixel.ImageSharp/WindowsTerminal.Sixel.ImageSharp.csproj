@@ -4,8 +4,38 @@
     <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Webmaster442.WindowsTerminal.Sixel.ImageSharp</Title>
+    <WarningsAsErrors>$(WarningsAsErrors);NU1605;CS1591</WarningsAsErrors>
+    <Authors>webmaster442</Authors>
+    <Description>Webmaster442.WindowsTerminal extension for Sixel encoding images with ImageSharp</Description>
+    <PackageProjectUrl>https://github.com/webmaster442/WindowsTerminal</PackageProjectUrl>
+    <PackageIcon>128x128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/webmaster442/WindowsTerminal</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>windows;terminal;ANSI;Escape;Codes;Sixel;SixLabors;ImageSharp</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\..\Img\128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
   </ItemGroup>
