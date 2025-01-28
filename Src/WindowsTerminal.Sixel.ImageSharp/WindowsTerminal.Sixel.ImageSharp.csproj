@@ -18,7 +18,7 @@
     <PackageTags>windows;terminal;ANSI;Escape;Codes;Sixel;SixLabors;ImageSharp</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>2.0.0</Version>
+    <Version>3.1.6</Version>
   </PropertyGroup>
 
   <ItemGroup>
