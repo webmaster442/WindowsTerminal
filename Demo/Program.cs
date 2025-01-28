@@ -1,4 +1,9 @@
-﻿using SixLabors.ImageSharp;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 using Webmaster442.WindowsTerminal;
