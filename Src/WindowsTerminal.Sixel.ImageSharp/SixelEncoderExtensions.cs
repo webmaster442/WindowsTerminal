@@ -3,6 +3,8 @@
 // This code is licensed under MIT license (see LICENSE for details)
 // --------------------------------------------------------------------------
 
+using System.Text;
+
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -28,15 +30,11 @@ public static class SixelEncoderExtensions
         {
             if (cellWidth > 0)
             {
-                // Some math to get the target size in pixels and
-                // reverse it to cell height that it will consume.
-                var pixelWidth = cellWidth * encoder.GetCellSize().width;
-                var pixelHeight = (int)Math.Round((double)image.Height / image.Width * pixelWidth);
                 // Resize the image to the target size
                 ctx.Resize(new ResizeOptions()
                 {
                     Sampler = KnownResamplers.Bicubic,
-                    Size = new(pixelWidth, pixelHeight),
+                    Size = Size(image, encoder.GetCellSize()),
                     PremultiplyAlpha = false,
                 });
             }
@@ -47,5 +45,26 @@ public static class SixelEncoderExtensions
             }));
         });
         return encoder.Encode(new ImageSharpImageData(image.Frames[0]));
+    }
+
+    private static Size Size(Image<Rgba32> image, (int width, int height) cellSize)
+    {
+        var maxWidht = Console.WindowWidth * cellSize.width;
+        var maxHeight = Console.WindowHeight * cellSize.height;
+
+        if (image.Width > maxWidht)
+        {
+            var ratio = (double)maxWidht / image.Width;
+            return new Size(maxWidht, (int)Math.Round(image.Height * ratio));
+        }
+        else if (image.Height > maxHeight)
+        {
+            var ratio = (double)maxHeight / image.Height;
+            return new Size((int)Math.Round(image.Width * ratio), maxHeight);
+        }
+        else
+        {
+            return new Size(image.Width, image.Height);
+        }
     }
 }
