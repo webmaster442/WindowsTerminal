@@ -133,6 +133,13 @@ public static class WindowsTerminal
     }
 
     /// <summary>
+    /// Check if the current program is running inside the Windows Terminal
+    /// </summary>
+    /// <returns>True, if App is running inside windows terminal</returns>
+    public static bool IsRunningInsideWindowsTerminal()
+        => Environment.GetEnvironmentVariable("WT_SESSION") != null;
+
+    /// <summary>
     /// Set the window title
     /// </summary>
     /// <param name="title">Title to set</param>
