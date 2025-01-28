@@ -1,10 +1,10 @@
 ﻿using System.Numerics;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Internals;
 
 internal static class Extensions
 {
-    public static T Restrict<T>(this T value, T minValue, T maxValue) where T: IComparisonOperators<T, T, bool>
+    public static T Restrict<T>(this T value, T minValue, T maxValue) where T : IComparisonOperators<T, T, bool>
     {
         if (value < minValue)
             return minValue;

@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using Webmaster442.WindowsTerminal.Internals;
+
 namespace Webmaster442.WindowsTerminal;
 
 /// <summary>
@@ -18,7 +20,8 @@ public static class WindowsTerminal
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            TypeInfoResolver = TerminalFragmentGenerationContext.Default
         };
         options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>(JsonNamingPolicy.CamelCase));
         options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>(JsonNamingPolicy.CamelCase));
@@ -89,7 +92,7 @@ public static class WindowsTerminal
                 }
                 var filePath = Path.Combine(fragmentFolder, Path.ChangeExtension(fragmentName, ".json"));
                 using var stream = File.Create(filePath);
-                await JsonSerializer.SerializeAsync(stream, terminalFragment, _serializerOptions);
+                await JsonSerializer.SerializeAsync(stream, terminalFragment, typeof(TerminalFragment), TerminalFragmentGenerationContext.Default);
                 return true;
             }
             catch (Exception)
@@ -112,7 +115,7 @@ public static class WindowsTerminal
                 return null;
             }
             using var stream = File.OpenRead(filePath);
-            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, _serializerOptions);
+            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, TerminalFragmentGenerationContext.Default.TerminalFragment);
         }
     }
 

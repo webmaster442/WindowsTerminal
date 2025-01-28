@@ -5,27 +5,27 @@ using Webmaster442.WindowsTerminal;
 
 TerminalFormattedStringBuilder builder = new();
 
-BasicFormatting();
+//BasicFormatting();
 
-WaitForKeyPress();
+//WaitForKeyPress();
 
-Colors256Demo();
+//Colors256Demo();
 
-WaitForKeyPress();
+//WaitForKeyPress();
 
-Colors24BitDemo();
+//Colors24BitDemo();
 
-WaitForKeyPress();
+//WaitForKeyPress();
 
-ProgrssbarDemo();
+//ProgrssbarDemo();
 
-WaitForKeyPress();
+//WaitForKeyPress();
 
-MusicDemo();
+//MusicDemo();
 
 await FragmentInstallDemo();
 
-ShellIntegrationDemo();
+//ShellIntegrationDemo();
 
 
 void MusicDemo()
@@ -109,7 +109,7 @@ void ProgrssbarDemo()
 
     Console.WriteLine("Normal progress");
     int done = 0;
-    for (int i=0; i<50; i++)
+    for (int i = 0; i < 50; i++)
     {
         WindowsTerminal.SetProgressbar(ProgressbarState.Default, i);
         Thread.Sleep(50);
@@ -136,22 +136,39 @@ void ProgrssbarDemo()
 
 async Task FragmentInstallDemo()
 {
+
+    var fragment = new TerminalFragment()
+    {
+        Profiles =
+        {
+            new TerminalProfile
+            {
+                Name = "Webmaster442.WindowsTerminalDemo",
+                CommandLine = Path.Combine(AppContext.BaseDirectory, "Demo.exe"),
+            }
+        }
+    };
+
+    Console.WriteLine("Fragment JSON:");
+    Console.WriteLine(fragment.ToJson());
+
     const string appName = "Webmaster442.WindowsTerminalDemo";
     const string fragmentName = "demoApp.json";
     if (!WindowsTerminal.FragmentExtensions.IsFragmentInstalled(appName, fragmentName))
     {
-        bool result = await WindowsTerminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, new TerminalFragment()
+        Console.WriteLine("Fragment not installed. Install? (Y/N)");
+        if (Console.ReadKey().Key == ConsoleKey.Y)
         {
-            Profiles = 
+            bool result = await WindowsTerminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, fragment);
+            if (result)
             {
-                new TerminalProfile
-                {
-                    Name = "Webmaster442.WindowsTerminalDemo",
-                    CommandLine = Path.Combine(AppContext.BaseDirectory, "Demo.exe"),
-                    StartingDirectory = EnvironmentVariables.HomePath,
-                }
+                Console.WriteLine("Fragment installed");
             }
-        });
+            else
+            {
+                Console.WriteLine("Fragment installation failed");
+            }
+        }
     }
     else
     {

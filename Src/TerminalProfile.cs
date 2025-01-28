@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+using Webmaster442.WindowsTerminal.Internals;
+
 namespace Webmaster442.WindowsTerminal;
 
 /// <summary>
@@ -7,6 +9,86 @@ namespace Webmaster442.WindowsTerminal;
 /// </summary>
 public record class TerminalProfile
 {
+    /// <summary>
+    /// Crates a Terminal profile for Anaconda3
+    /// </summary>
+    /// <param name="installPath">Anaconda3 install path.</param>
+    /// <returns>A terminal profile configured for Anaconda3.</returns>
+    public static TerminalProfile CreateAnaconda3(string installPath = "%USERPROFILE%\\Anaconda3")
+    {
+        return new TerminalProfile
+        {
+            Name = "Anaconda3",
+            CommandLine = $"cmd.exe /k \"{Path.Combine(installPath, "Scripts", "activate.bat")} {installPath}\"",
+            Icon = Path.Combine(installPath, "Menu", "anaconda-navigator.ico"),
+            StartingDirectory = EnvironmentVariables.UserProfile
+        };
+    }
+
+    /// <summary>
+    /// Crates a Terminal profile for Cmder
+    /// </summary>
+    /// <param name="installPath">Cmder install path.</param>
+    /// <returns>A terminal profile configured for Cmder</returns>
+    public static TerminalProfile CreateCmder(string installPath = "%CMDER_ROOT%")
+    {
+        return new TerminalProfile
+        {
+            Name = "cmder",
+            CommandLine = $"cmd.exe /k {Path.Combine(installPath, "vendor", "init.bat")}",
+            Icon = Path.Combine(installPath, "icons", "cmder.ico"),
+            StartingDirectory = EnvironmentVariables.UserProfile
+        };
+    }
+
+    /// <summary>
+    /// Creates a Terminal profile for Cygwin
+    /// </summary>
+    /// <param name="installPath">Cygwin install path.</param>
+    /// <returns>A terminal profile configured for Cygwin</returns>
+    public static TerminalProfile CreateCygwin(string installPath = "%HOMEDRIVE%\\cygwin64")
+    {
+        return  new TerminalProfile
+        {
+            Name = "Cygwin",
+            CommandLine = $"{Path.Combine(installPath, "bin", "bash")} --login -i",
+            Icon = Path.Combine(installPath, "Cygwin.ico"),
+            StartingDirectory = Path.Combine(installPath, "bin")
+        };
+    }
+
+    /// <summary>
+    /// Creates a Terminal profile for Far Manager
+    /// </summary>
+    /// <param name="installPath">Far manager install path.</param>
+    /// <returns>A terminal profile configured for Far</returns>
+    public static TerminalProfile CreateFarManager(string installPath = "%ProgramFiles%\\Far Manager")
+    {
+        return new TerminalProfile
+        {
+            Name = "Far Manager",
+            CommandLine = Path.Combine(installPath, "Far.exe"),
+            UseAcrylic = false,
+            StartingDirectory = EnvironmentVariables.UserProfile
+        };
+    }
+
+    /// <summary>
+    /// Creates a Terminal profile for Git Bash
+    /// </summary>
+    /// <param name="installPath">Git bash install path</param>
+    /// <returns>A terminal profile configured for git bash</returns>
+    public static TerminalProfile CreateGitBash(string installPath = "%ProgramFiles%\\Git")
+    {
+        return new TerminalProfile
+        {
+            Name = "Git Bash",
+            CommandLine = $"{Path.Combine(installPath, "bin", "bash.exe")} -li",
+            Icon = Path.Combine(installPath, "mingw64", "share", "git", "git-for-windows.ico"),
+            StartingDirectory = EnvironmentVariables.UserProfile
+        };
+    }
+
     /// <summary>
     /// This is the name of the profile that will be displayed in the dropdown menu.
     /// </summary>
@@ -29,7 +111,7 @@ public record class TerminalProfile
     /// This sets the icon that displays within the tab, dropdown menu, jumplist, and tab switcher.
     /// </summary>
     [JsonPropertyName("icon")]
-    public string Icon { get; init; }
+    public string? Icon { get; init; }
 
     /// <summary>
     /// If set, this will replace the name as the title to pass to the shell on startup. 
@@ -37,7 +119,7 @@ public record class TerminalProfile
     /// use this value over the lifetime of the application.
     /// </summary>
     [JsonPropertyName("tabTitle")]
-    public string TabTitle { get; init; }
+    public string? TabTitle { get; init; }
 
     /// <summary>
     /// If set, this profile will automatically open up in an "elevated" window (running as Administrator) by default.
@@ -56,7 +138,7 @@ public record class TerminalProfile
     /// This is the name of the color scheme used in the profile. Color schemes are defined in the schemes object.
     /// </summary>
     [JsonPropertyName("colorScheme")]
-    public string ColorScheme { get; init; }
+    public string? ColorScheme { get; init; }
 
     /// <summary>
     /// When this is set to true, the window will have an acrylic background. When it's set to false, the window will have a plain, untextured background. 
@@ -68,7 +150,7 @@ public record class TerminalProfile
     /// This sets the file location of the image to draw over the window background. The background image can be a .jpg, .png, or .gif file. "desktopWallpaper" will set the background image to the desktop's wallpaper.
     /// </summary>
     [JsonPropertyName("backgroundImage")]
-    public string BackgroundImage { get; init; }
+    public string? BackgroundImage { get; init; }
 
     /// <summary>
     /// This sets the transparency of the background image.
@@ -98,22 +180,36 @@ public record class TerminalProfile
     /// 100 is "fully opaque", 50 is semi-transparent, and 0 is fully transparent.
     /// </summary>
     [JsonPropertyName("opacity")]
-    public int Opacity 
+    public int Opacity
     {
         get => field;
         init => field = value.Restrict(0, 100);
     }
 
     /// <summary>
+    /// Show marks on the scrollbar. Enable this option for shell integration.
+    /// </summary>
+    [JsonPropertyName("showMarksOnScrollbar")]
+    public bool ShowMarksOnScrollbar { get; init; }
+
+    /// <summary>
+    /// Atuo mark prompts. Enable this option for shell integration.
+    /// </summary>
+    [JsonPropertyName("autoMarkPrompts")]
+    public bool AutoMarkPrompts { get; init; }
+
+    /// <summary>
+    /// Font settings for the profile
+    /// </summary>
+    [JsonPropertyName("font")]
+    public TerminalFont? Font { get; init; }
+
+    /// <summary>
     /// Creates a new instance of the TerminalProfile class.
     /// </summary>
     public TerminalProfile()
     {
-        StartingDirectory = string.Empty;
-        Icon = string.Empty;
-        TabTitle = string.Empty;
-        BackgroundImage = string.Empty;
-        ColorScheme = string.Empty;
+        StartingDirectory = EnvironmentVariables.UserProfile;
         BackgroundImageStretchMode = TerminalBackgroundImageStretchMode.UniformToFill;
         BackgroundImageAlignment = TerminalBackgroundImageAlignment.Center;
         BackgroundImageOpacity = 1.0;
