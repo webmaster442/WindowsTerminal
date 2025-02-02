@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\WindowsTerminal.Sixel.ImageSharp\Webmaster442.WindowsTerminal.Sixel.ImageSharp.csproj" />
     <ProjectReference Include="..\Src\WindowsTerminal\Webmaster442.WindowsTerminal.csproj" />
   </ItemGroup>
 
