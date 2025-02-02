@@ -1,4 +1,4 @@
-# Next
+# 2.0.0
 
 - Added .NET 8 support
 - Libary is now AOT compatible
