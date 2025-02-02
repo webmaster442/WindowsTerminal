@@ -89,3 +89,15 @@ music.AddNote(6, TimeSpan.FromSeconds(1), Note.A5);
 music.AddNote(6, TimeSpan.FromSeconds(1), Note.B5);
 Console.Write(music.ToString());
 ```
+
+**Create a Sixel image:**
+
+Note : This feature requires the Webmaster442.WindowsTerminal.Sixel package
+
+```csharp
+Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
+
+var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
+var img = Sixel.ImageToSixel(imagePath);
+Console.Write(img);
+```

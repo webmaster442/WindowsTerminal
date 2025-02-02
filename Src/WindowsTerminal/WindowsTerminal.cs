@@ -1,5 +1,12 @@
-﻿using System.Text.Json;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+using System.Text.Json;
 using System.Text.Json.Serialization;
+
+using Webmaster442.WindowsTerminal.Internals;
 
 namespace Webmaster442.WindowsTerminal;
 
@@ -18,7 +25,8 @@ public static class WindowsTerminal
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            TypeInfoResolver = TerminalFragmentGenerationContext.Default
         };
         options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>(JsonNamingPolicy.CamelCase));
         options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>(JsonNamingPolicy.CamelCase));
@@ -89,7 +97,7 @@ public static class WindowsTerminal
                 }
                 var filePath = Path.Combine(fragmentFolder, Path.ChangeExtension(fragmentName, ".json"));
                 using var stream = File.Create(filePath);
-                await JsonSerializer.SerializeAsync(stream, terminalFragment, _serializerOptions);
+                await JsonSerializer.SerializeAsync(stream, terminalFragment, typeof(TerminalFragment), TerminalFragmentGenerationContext.Default);
                 return true;
             }
             catch (Exception)
@@ -112,7 +120,7 @@ public static class WindowsTerminal
                 return null;
             }
             using var stream = File.OpenRead(filePath);
-            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, _serializerOptions);
+            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, TerminalFragmentGenerationContext.Default.TerminalFragment);
         }
     }
 
@@ -128,6 +136,13 @@ public static class WindowsTerminal
         ArgumentOutOfRangeException.ThrowIfGreaterThan(value, 100);
         Console.Write($"\e]9;4;{(int)progressbarState};{value}\a");
     }
+
+    /// <summary>
+    /// Check if the current program is running inside the Windows Terminal
+    /// </summary>
+    /// <returns>True, if App is running inside windows terminal</returns>
+    public static bool IsRunningInsideWindowsTerminal()
+        => Environment.GetEnvironmentVariable("WT_SESSION") != null;
 
     /// <summary>
     /// Set the window title
