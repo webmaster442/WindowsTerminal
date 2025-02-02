@@ -3,11 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 // --------------------------------------------------------------------------
 
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-
 using Webmaster442.WindowsTerminal;
-using Webmaster442.WindowsTerminal.Sixel.ImageSharp;
 
 TerminalFormattedStringBuilder builder = new();
 
@@ -37,10 +33,11 @@ SixelDemo();
 
 void SixelDemo()
 {
-    var encoder = new SixelEncoder();
+    Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
+
     var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
-    var img = Image.Load<Rgba32>(imagePath);
-    Console.Write(encoder.Encode(img));
+    var img = Sixel.ImageToSixel(imagePath);
+    Console.Write(img);
 }
 
 void MusicDemo()
