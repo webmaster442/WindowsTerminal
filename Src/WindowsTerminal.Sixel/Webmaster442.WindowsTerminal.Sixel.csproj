@@ -14,7 +14,6 @@
     <Description>A windows terminal interaction libary, adds Sixel encoding</Description>
     <PackageProjectUrl>https://github.com/webmaster442/WindowsTerminal</PackageProjectUrl>
     <PackageIcon>128x128.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/webmaster442/WindowsTerminal</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>windows;terminal;sixel;image;display;terminal;console</PackageTags>
@@ -22,6 +21,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Version>2.0.0</Version>
     <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +33,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\README.md">
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

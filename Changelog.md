@@ -8,6 +8,7 @@
 - `TerminalProfile` class new properties:
     - `ShowMarksOnScrollbar`, `AutoMarkPrompts` for Shell integration support
     - `Font` to specify font settings
+- Sixel image support via the Webmaster442.Windowsterminal.Sixel package. This package depends on Sixlabors.ImageSharp
 
 # 1.1.1
 
