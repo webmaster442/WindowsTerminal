@@ -9,10 +9,10 @@ Namespace: Webmaster442.WindowsTerminal
 Represents a color scheme for Windows Terminal
 
 ```csharp
-public class TerminalScheme : System.IEquatable`1[[Webmaster442.WindowsTerminal.TerminalScheme, Webmaster442.WindowsTerminal, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null]]
+public class TerminalScheme : System.IEquatable`1[[Webmaster442.WindowsTerminal.TerminalScheme, Webmaster442.WindowsTerminal, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalScheme](./webmaster442.windowsterminal.terminalscheme)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalScheme](./webmaster442.windowsterminal.terminalscheme.md)<br>
 Implements [IEquatable&lt;TerminalScheme&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iequatable-1)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute), [RequiredMemberAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.requiredmemberattribute)
 
@@ -290,7 +290,7 @@ protected TerminalScheme(TerminalScheme original)
 
 #### Parameters
 
-`original` [TerminalScheme](./webmaster442.windowsterminal.terminalscheme)<br>
+`original` [TerminalScheme](./webmaster442.windowsterminal.terminalscheme.md)<br>
 
 ### **TerminalScheme()**
 
@@ -362,7 +362,7 @@ public bool Equals(TerminalScheme other)
 
 #### Parameters
 
-`other` [TerminalScheme](./webmaster442.windowsterminal.terminalscheme)<br>
+`other` [TerminalScheme](./webmaster442.windowsterminal.terminalscheme.md)<br>
 
 #### Returns
 
@@ -376,7 +376,7 @@ public TerminalScheme <Clone>$()
 
 #### Returns
 
-[TerminalScheme](./webmaster442.windowsterminal.terminalscheme)<br>
+[TerminalScheme](./webmaster442.windowsterminal.terminalscheme.md)<br>
 
 ---
 

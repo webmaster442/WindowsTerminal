@@ -12,7 +12,7 @@ Represents a font used in the terminal
 public sealed class TerminalFont
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalFont](./webmaster442.windowsterminal.terminalfont)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalFont](./webmaster442.windowsterminal.terminalfont.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Properties
@@ -51,7 +51,7 @@ public TerminalFontWeight Weight { get; set; }
 
 #### Property Value
 
-[TerminalFontWeight](./webmaster442.windowsterminal.terminalfontweight)<br>
+[TerminalFontWeight](./webmaster442.windowsterminal.terminalfontweight.md)<br>
 
 ## Constructors
 

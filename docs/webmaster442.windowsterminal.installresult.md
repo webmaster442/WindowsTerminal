@@ -9,10 +9,10 @@ Namespace: Webmaster442.WindowsTerminal
 Represents the Installation status of various applications
 
 ```csharp
-public sealed class InstallResult : System.IEquatable`1[[Webmaster442.WindowsTerminal.InstallResult, Webmaster442.WindowsTerminal, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null]]
+public sealed class InstallResult : System.IEquatable`1[[Webmaster442.WindowsTerminal.InstallResult, Webmaster442.WindowsTerminal, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [InstallResult](./webmaster442.windowsterminal.installresult)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [InstallResult](./webmaster442.windowsterminal.installresult.md)<br>
 Implements [IEquatable&lt;InstallResult&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iequatable-1)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
@@ -142,7 +142,7 @@ public bool Equals(InstallResult other)
 
 #### Parameters
 
-`other` [InstallResult](./webmaster442.windowsterminal.installresult)<br>
+`other` [InstallResult](./webmaster442.windowsterminal.installresult.md)<br>
 
 #### Returns
 
@@ -156,7 +156,7 @@ public InstallResult <Clone>$()
 
 #### Returns
 
-[InstallResult](./webmaster442.windowsterminal.installresult)<br>
+[InstallResult](./webmaster442.windowsterminal.installresult.md)<br>
 
 ---
 

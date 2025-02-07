@@ -12,7 +12,7 @@ DECPS music note builder
 public sealed class MusicStringBuilder
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [MusicStringBuilder](./webmaster442.windowsterminal.musicstringbuilder)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [MusicStringBuilder](./webmaster442.windowsterminal.musicstringbuilder.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Properties
@@ -51,7 +51,7 @@ public MusicStringBuilder New()
 
 #### Returns
 
-[MusicStringBuilder](./webmaster442.windowsterminal.musicstringbuilder)<br>
+[MusicStringBuilder](./webmaster442.windowsterminal.musicstringbuilder.md)<br>
 A MusicStringBuilder to chain formatting
 
 ### **AddNote(Int32, TimeSpan, Note)**
@@ -70,12 +70,12 @@ Note volume. Must be between 0 and 7. 0 - Silent, 7 - Lodest
 `duration` [TimeSpan](https://docs.microsoft.com/en-us/dotnet/api/system.timespan)<br>
 Note duration. Rounded to the nearest 1/32 seconds
 
-`note` [Note](./webmaster442.windowsterminal.note)<br>
+`note` [Note](./webmaster442.windowsterminal.note.md)<br>
 Muiscal note to play
 
 #### Returns
 
-[MusicStringBuilder](./webmaster442.windowsterminal.musicstringbuilder)<br>
+[MusicStringBuilder](./webmaster442.windowsterminal.musicstringbuilder.md)<br>
 A MusicStringBuilder to chain formatting
 
 #### Exceptions

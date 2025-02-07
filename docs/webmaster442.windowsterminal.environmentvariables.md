@@ -12,7 +12,7 @@ Known environment variables
 public static class EnvironmentVariables
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [EnvironmentVariables](./webmaster442.windowsterminal.environmentvariables)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [EnvironmentVariables](./webmaster442.windowsterminal.environmentvariables.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Fields
