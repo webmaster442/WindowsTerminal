@@ -89,19 +89,20 @@ public static class Sixel
         {
             try
             {
-                Console.Write("\x1b[?2;1;0S");
+                Console.Write("\x1B[c");
                 Thread.Sleep(100);
-                if (Console.KeyAvailable)
+                StringBuilder response = new();
+                while (Console.KeyAvailable)
                 {
-                    string response = Console.ReadKey(true).KeyChar.ToString();
-                    return response.Contains("1");
+                    response.Append(Console.ReadKey(true).KeyChar);
                 }
+                var parts = response.ToString().Split(';');
+                return parts.Length > 2 && parts[1] == "4";
             }
             catch (IOException)
             {
                 return false;
             }
-            return false;
         }
     }
 

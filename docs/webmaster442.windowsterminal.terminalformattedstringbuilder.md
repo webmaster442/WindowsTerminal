@@ -12,7 +12,7 @@ Formatted text output builder
 public sealed class TerminalFormattedStringBuilder
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Constructors
@@ -37,7 +37,7 @@ public TerminalFormattedStringBuilder New()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **ResetFormat()**
@@ -50,7 +50,7 @@ public TerminalFormattedStringBuilder ResetFormat()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithForegroundColor(TerminalColor)**
@@ -63,12 +63,12 @@ public TerminalFormattedStringBuilder WithForegroundColor(TerminalColor color)
 
 #### Parameters
 
-`color` [TerminalColor](./webmaster442.windowsterminal.terminalcolor)<br>
+`color` [TerminalColor](./webmaster442.windowsterminal.terminalcolor.md)<br>
 Color to use
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithForegroundColor(ConsoleColor)**
@@ -86,7 +86,7 @@ Color to use
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithForegroundColor(String)**
@@ -104,7 +104,7 @@ color in hex format, like #ffffff
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithForegroundColor(Byte, Byte, Byte)**
@@ -128,7 +128,7 @@ blue value
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithForegroundColor(Int32)**
@@ -147,7 +147,7 @@ color index to use
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithBackgroundColor(TerminalColor)**
@@ -160,12 +160,12 @@ public TerminalFormattedStringBuilder WithBackgroundColor(TerminalColor color)
 
 #### Parameters
 
-`color` [TerminalColor](./webmaster442.windowsterminal.terminalcolor)<br>
+`color` [TerminalColor](./webmaster442.windowsterminal.terminalcolor.md)<br>
 Color to use
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithBackgroundColor(ConsoleColor)**
@@ -183,7 +183,7 @@ Color to use
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithBackgroundColor(String)**
@@ -201,7 +201,7 @@ color in hex format, like #000000
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithBackgroundColor(Byte, Byte, Byte)**
@@ -225,7 +225,7 @@ blue value
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithBackgroundColor(Int32)**
@@ -244,7 +244,7 @@ color index to use
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithBold()**
@@ -257,7 +257,7 @@ public TerminalFormattedStringBuilder WithBold()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithItalic()**
@@ -270,7 +270,7 @@ public TerminalFormattedStringBuilder WithItalic()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithUnderline()**
@@ -283,7 +283,7 @@ public TerminalFormattedStringBuilder WithUnderline()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithInverse()**
@@ -296,7 +296,7 @@ public TerminalFormattedStringBuilder WithInverse()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **Append(String)**
@@ -314,7 +314,7 @@ text
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **Append(Char)**
@@ -332,7 +332,7 @@ The UTF-16-encoded code unit to append.
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **Append(Char, Int32)**
@@ -353,7 +353,7 @@ The number of times to append chr.
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **Append(Object)**
@@ -371,7 +371,7 @@ object to append
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **AppendLine(String)**
@@ -389,7 +389,7 @@ text
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **AppendLine()**
@@ -402,7 +402,7 @@ public TerminalFormattedStringBuilder AppendLine()
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **AppendFormat(String, Object[])**
@@ -424,7 +424,7 @@ An array of objects to format.
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **AppendJoin&lt;T&gt;(Char, IEnumerable&lt;T&gt;)**
@@ -450,7 +450,7 @@ A collection that contains the objects to concatenate and append to the current 
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **AppendJoin&lt;T&gt;(String, IEnumerable&lt;T&gt;)**
@@ -476,7 +476,7 @@ A collection that contains the objects to concatenate and append to the current 
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **WithNerdFont(NerdFontIcon)**
@@ -489,12 +489,12 @@ public TerminalFormattedStringBuilder WithNerdFont(NerdFontIcon nerdFont)
 
 #### Parameters
 
-`nerdFont` [NerdFontIcon](./webmaster442.windowsterminal.nerdfonticon)<br>
+`nerdFont` [NerdFontIcon](./webmaster442.windowsterminal.nerdfonticon.md)<br>
 Nerd font icon to display
 
 #### Returns
 
-[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder)<br>
+[TerminalFormattedStringBuilder](./webmaster442.windowsterminal.terminalformattedstringbuilder.md)<br>
 A TerminalFormattedStringBuilder to chain formatting
 
 ### **ToString()**

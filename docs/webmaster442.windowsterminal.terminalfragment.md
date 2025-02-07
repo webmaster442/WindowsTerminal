@@ -12,7 +12,7 @@ Represents a terminal fragment
 public sealed class TerminalFragment
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalFragment](./webmaster442.windowsterminal.terminalfragment)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalFragment](./webmaster442.windowsterminal.terminalfragment.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Properties

@@ -9,10 +9,10 @@ Namespace: Webmaster442.WindowsTerminal
 A profile is a set of settings that can be applied to a terminal window.
 
 ```csharp
-public class TerminalProfile : System.IEquatable`1[[Webmaster442.WindowsTerminal.TerminalProfile, Webmaster442.WindowsTerminal, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null]]
+public class TerminalProfile : System.IEquatable`1[[Webmaster442.WindowsTerminal.TerminalProfile, Webmaster442.WindowsTerminal, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null]]
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 Implements [IEquatable&lt;TerminalProfile&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iequatable-1)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute), [RequiredMemberAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.requiredmemberattribute)
 
@@ -173,7 +173,7 @@ public TerminalBackgroundImageAlignment BackgroundImageAlignment { get; set; }
 
 #### Property Value
 
-[TerminalBackgroundImageAlignment](./webmaster442.windowsterminal.terminalbackgroundimagealignment)<br>
+[TerminalBackgroundImageAlignment](./webmaster442.windowsterminal.terminalbackgroundimagealignment.md)<br>
 
 ### **BackgroundImageStretchMode**
 
@@ -185,7 +185,7 @@ public TerminalBackgroundImageStretchMode BackgroundImageStretchMode { get; set;
 
 #### Property Value
 
-[TerminalBackgroundImageStretchMode](./webmaster442.windowsterminal.terminalbackgroundimagestretchmode)<br>
+[TerminalBackgroundImageStretchMode](./webmaster442.windowsterminal.terminalbackgroundimagestretchmode.md)<br>
 
 ### **Opacity**
 
@@ -235,7 +235,7 @@ public TerminalFont Font { get; set; }
 
 #### Property Value
 
-[TerminalFont](./webmaster442.windowsterminal.terminalfont)<br>
+[TerminalFont](./webmaster442.windowsterminal.terminalfont.md)<br>
 
 ## Constructors
 
@@ -261,7 +261,7 @@ protected TerminalProfile(TerminalProfile original)
 
 #### Parameters
 
-`original` [TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+`original` [TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 
 ## Methods
 
@@ -280,7 +280,7 @@ Anaconda3 install path.
 
 #### Returns
 
-[TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+[TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 A terminal profile configured for Anaconda3.
 
 ### **CreateCmder(String)**
@@ -298,7 +298,7 @@ Cmder install path.
 
 #### Returns
 
-[TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+[TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 A terminal profile configured for Cmder
 
 ### **CreateCygwin(String)**
@@ -316,7 +316,7 @@ Cygwin install path.
 
 #### Returns
 
-[TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+[TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 A terminal profile configured for Cygwin
 
 ### **CreateFarManager(String)**
@@ -334,7 +334,7 @@ Far manager install path.
 
 #### Returns
 
-[TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+[TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 A terminal profile configured for Far
 
 ### **CreateGitBash(String)**
@@ -352,7 +352,7 @@ Git bash install path
 
 #### Returns
 
-[TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+[TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 A terminal profile configured for git bash
 
 ### **ToString()**
@@ -411,7 +411,7 @@ public bool Equals(TerminalProfile other)
 
 #### Parameters
 
-`other` [TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+`other` [TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 
 #### Returns
 
@@ -425,7 +425,7 @@ public TerminalProfile <Clone>$()
 
 #### Returns
 
-[TerminalProfile](./webmaster442.windowsterminal.terminalprofile)<br>
+[TerminalProfile](./webmaster442.windowsterminal.terminalprofile.md)<br>
 
 ---
 

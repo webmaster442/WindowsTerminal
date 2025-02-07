@@ -12,7 +12,7 @@ Built in color schemes for Windows Terminal
 public static class TerminalSchemes
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalSchemes](./webmaster442.windowsterminal.terminalschemes)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [TerminalSchemes](./webmaster442.windowsterminal.terminalschemes.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Fields

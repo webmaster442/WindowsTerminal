@@ -12,7 +12,7 @@ Detects installed applications
 public static class InstallDetector
 ```
 
-Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [InstallDetector](./webmaster442.windowsterminal.installdetector)<br>
+Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [InstallDetector](./webmaster442.windowsterminal.installdetector.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
 ## Fields
@@ -53,7 +53,7 @@ public static InstallResult GetInstallResult()
 
 #### Returns
 
-[InstallResult](./webmaster442.windowsterminal.installresult)<br>
+[InstallResult](./webmaster442.windowsterminal.installresult.md)<br>
 An InstallResult
 
 ---
