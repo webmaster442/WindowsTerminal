@@ -8,11 +8,17 @@ A Windows Terminal Interaction libary
 
 Via NuGet: https://www.nuget.org/packages/Webmaster442.WindowsTerminal
 
+Sixel support addon package (Uses SixLabors.ImageSharp): https://www.nuget.org/packages/Webmaster442.WindowsTerminal.Sixel
+
 
 Via .NET Cli:
 
 ```bash
 dotnet add package Webmaster442.WindowsTerminal
+```
+
+```bash
+dotnet add package Webmaster442.WindowsTerminal.Sixel
 ```
 
 ## Features
