@@ -28,7 +28,7 @@ public static class Sixel
     private static string GetControlSequenceResponse(string controlSequence)
     {
         char? c = null;
-        var response = string.Empty;
+        var response = new StringBuilder();
 
         try
         {
@@ -36,9 +36,9 @@ public static class Sixel
             while (c != 'c' && Console.KeyAvailable)
             {
                 c = Console.ReadKey(true).KeyChar;
-                response += c;
+                response.Append(c);
             }
-            return response;
+            return response.ToString();
         }
         catch (IOException)
         {
@@ -46,7 +46,11 @@ public static class Sixel
         }
     }
 
-    private static (int width, int hegiht) GetTerminalWindowSize()
+    /// <summary>
+    /// Get the terminal window size in pixels
+    /// </summary>
+    /// <returns>A value tuple with the terminal window size</returns>
+    public static (int width, int hegiht) GetTerminalWindowSize()
     {
         static (int width, int hegiht) DefaultSize()
             => (width: 10 * Console.WindowWidth, hegiht: 20 * Console.WindowHeight);
@@ -56,7 +60,7 @@ public static class Sixel
         try
         {
             var parts = response.Split(';', 't');
-            if (parts.Length == 2)
+            if (parts.Length > 2)
             {
                 return (width: int.Parse(parts[2]) * Console.WindowWidth, hegiht: int.Parse(parts[1]) * Console.WindowHeight);
             }
@@ -87,22 +91,9 @@ public static class Sixel
     {
         get
         {
-            try
-            {
-                Console.Write("\x1B[c");
-                Thread.Sleep(100);
-                StringBuilder response = new();
-                while (Console.KeyAvailable)
-                {
-                    response.Append(Console.ReadKey(true).KeyChar);
-                }
-                var parts = response.ToString().Split(';');
-                return parts.Length > 2 && parts[1] == "4";
-            }
-            catch (IOException)
-            {
-                return false;
-            }
+            string response = GetControlSequenceResponse("[c");
+            var parts = response.Split(';');
+            return parts.Length > 2 && parts[1] == "4";
         }
     }
 
@@ -145,7 +136,6 @@ public static class Sixel
             maxSize = terminalSize;
         }
 
-        int cellWidth = Console.WindowWidth;
         image.Mutate(ctx =>
         {
             ctx.Resize(new ResizeOptions()
