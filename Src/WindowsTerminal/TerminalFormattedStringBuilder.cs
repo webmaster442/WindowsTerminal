@@ -6,7 +6,8 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using System.Text.RegularExpressions;
+
+using Webmaster442.WindowsTerminal.Internals;
 
 namespace Webmaster442.WindowsTerminal;
 
@@ -89,16 +90,6 @@ public sealed class TerminalFormattedStringBuilder
         };
     }
 
-    private static (byte r, byte g, byte b) DecodeRgbHex(string rgbHex)
-    {
-        if (Regex.IsMatch(rgbHex, "^#[0-9a-fA-F]{6}$"))
-        {
-            byte[] value = Convert.FromHexString(rgbHex.Substring(1));
-            return (value[0], value[1], value[2]);
-        }
-        throw new FormatException("not a valid hex RGB color");
-    }
-
     /// <summary>
     /// Create a new instance of TerminalFormattedStringBuilder
     /// </summary>
@@ -150,11 +141,12 @@ public sealed class TerminalFormattedStringBuilder
     /// <summary>
     /// Set foreground color to a 24 bit RGB color
     /// </summary>
-    /// <param name="rgbHex">color in hex format, like #ffffff</param>
+    /// <param name="color">color in hex format (E.g: #ffffff) or rgb format (E.g: rgb(255, 255, 255)) or hsl format. (E.g: hsl(0, 0%, 100%))</param>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithForegroundColor(string rgbHex)
+    /// <exception cref="FormatException">The color was not one of the supported formats.</exception>
+    public TerminalFormattedStringBuilder WithForegroundColor(string color)
     {
-        var (r, g, b) = DecodeRgbHex(rgbHex);
+        var (r, g, b) = color.ToRgb();
         return WithForegroundColor(r, g, b);
     }
 
@@ -207,11 +199,12 @@ public sealed class TerminalFormattedStringBuilder
     /// <summary>
     /// Set background color to a 24 bit RGB color
     /// </summary>
-    /// <param name="rgbHex">color in hex format, like #000000</param>
+    /// <param name="color">color in hex format (E.g: #000000) or rgb format (E.g: rgb(0, 0, 0)) or hsl format. (E.g: hsl(0, 0%, 0%))</param>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithBackgroundColor(string rgbHex)
+    /// <exception cref="FormatException">The color was not one of the supported formats.</exception>
+    public TerminalFormattedStringBuilder WithBackgroundColor(string color)
     {
-        var (r, g, b) = DecodeRgbHex(rgbHex);
+        var (r, g, b) = color.ToRgb();
         return WithBackgroundColor(r, g, b);
     }
 
