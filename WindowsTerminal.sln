@@ -20,6 +20,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTermina
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BEB135EC-767B-4D1B-80EB-A63478A3EAEF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{2F3D2614-B280-4A05-9CF9-244221876F75}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet8.yml = .github\workflows\dotnet8.yml
+		.github\workflows\dotnet9.yml = .github\workflows\dotnet9.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
