@@ -13,6 +13,8 @@ WaitForKeyPress();
 
 Colors256Demo();
 
+GetPaletteColors();
+
 WaitForKeyPress();
 
 Colors24BitDemo();
@@ -30,6 +32,21 @@ await FragmentInstallDemo();
 ShellIntegrationDemo();
 
 SixelDemo();
+
+void GetPaletteColors()
+{
+    Console.Clear();
+    Console.WriteLine("Palette colors");
+    for (int i = 0; i < 15; i++)
+    {
+        var (r, g, b) = WindowsTerminal.GetPaletteColor(i);
+        Console.WriteLine(builder.New()
+            .WithForegroundColor(r, g, b)
+            .Append("█")
+            .ResetFormat()
+            .AppendLine($" Color {i}: R:{r} G:{g} B:{b}"));
+    }
+}
 
 void SixelDemo()
 {

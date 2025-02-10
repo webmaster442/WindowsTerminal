@@ -32,7 +32,8 @@ public static class Sixel
         try
         {
             Console.Write($"\e{controlSequence}");
-            while (c != 'c' && Console.KeyAvailable)
+            Thread.Sleep(20);
+            while (Console.KeyAvailable)
             {
                 c = Console.ReadKey(true).KeyChar;
                 response.Append(c);

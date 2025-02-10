@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 // --------------------------------------------------------------------------
 
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -31,6 +32,51 @@ public static class WindowsTerminal
         options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>(JsonNamingPolicy.CamelCase));
         options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>(JsonNamingPolicy.CamelCase));
         return options;
+    }
+
+    private static string GetControlSequenceResponse(string controlSequence)
+    {
+        char? c = null;
+        var response = new StringBuilder();
+
+        try
+        {
+            Console.Write(controlSequence);
+            Thread.Sleep(20);
+            while (Console.KeyAvailable)
+            {
+                c = Console.ReadKey(true).KeyChar;
+                response.Append(c);
+            }
+            return response.ToString();
+        }
+        catch (IOException)
+        {
+            return string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// Get the specified color of the current terminal palette
+    /// </summary>
+    /// <param name="colorIndex">Color index to get. Must be between 0 and 15</param>
+    /// <returns>24 bit RGB color</returns>
+    public static (byte r, byte g, byte b) GetPaletteColor(int colorIndex)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(colorIndex, 0);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(colorIndex, 15);
+        string response = GetControlSequenceResponse($"\u001B]4;{colorIndex};?\u0007");
+        if (string.IsNullOrEmpty(response))
+            return (0, 0, 0);
+
+        var parts = response.Split([':', ';', '/', '\u001b'], StringSplitOptions.RemoveEmptyEntries);
+
+        if (parts.Length < 6)
+            return (0, 0, 0);
+
+        return (byte.Parse(parts[3][..2], System.Globalization.NumberStyles.HexNumber),
+                byte.Parse(parts[4][..2], System.Globalization.NumberStyles.HexNumber),
+                byte.Parse(parts[5][..2], System.Globalization.NumberStyles.HexNumber));
     }
 
     /// <summary>
