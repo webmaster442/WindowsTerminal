@@ -33,11 +33,29 @@ SixelDemo();
 
 void SixelDemo()
 {
+    Console.Clear();
     Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
 
+    Console.WriteLine("512x512, SizeMode = None");
     var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
     var img = Sixel.ImageToSixel(imagePath);
     Console.Write(img);
+
+    Console.WriteLine("384x128, SizeMode = Fit");
+    var fit = Sixel.ImageToSixel(imagePath, (width: 384, height: 128), SizeMode.Fit);
+    Console.Write(fit);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitWidth = Sixel.ImageToSixel(imagePath, (width: 384, height: 128), SizeMode.FitWidth);
+    Console.Write(fitWidth);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitHeight = Sixel.ImageToSixel(imagePath, (width: 384, height: 128), SizeMode.FitHeight);
+    Console.Write(fitHeight);
+
+    Console.WriteLine("384x128, SizeMode = Manual");
+    var manual = Sixel.ImageToSixel(imagePath, (width: 384, height: 128), SizeMode.Manual);
+    Console.Write(manual);
 }
 
 void MusicDemo()

@@ -5,7 +5,6 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
-using System.Threading;
 
 namespace Webmaster442.WindowsTerminal;
 
@@ -73,18 +72,6 @@ public static class Sixel
     }
 
     /// <summary>
-    /// Converts an image to a Sixel string
-    /// </summary>
-    /// <param name="file">An image file path to load and then encode to sixel</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(string file, (int width, int height)? maxSize = null)
-    {
-        var image = Image.Load<Rgba32>(file);
-        return ImageToSixel(image, maxSize);
-    }
-
-    /// <summary>
     /// Check if sixel is supported
     /// </summary>
     public static bool IsSupported
@@ -100,13 +87,27 @@ public static class Sixel
     /// <summary>
     /// Converts an image to a Sixel string
     /// </summary>
+    /// <param name="file">An image file path to load and then encode to sixel</param>
+    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
+    /// <param name="sizeMode">Image size mode</param>
+    /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
+    public static string ImageToSixel(string file, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
+    {
+        var image = Image.Load<Rgba32>(file);
+        return ImageToSixel(image, maxSize, sizeMode);
+    }
+
+    /// <summary>
+    /// Converts an image to a Sixel string
+    /// </summary>
     /// <param name="data">An image data as a byte array that will be encoded</param>
     /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
+    /// <param name="sizeMode">Image size mode</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(byte[] data, (int width, int height)? maxSize = null)
+    public static string ImageToSixel(byte[] data, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
     {
         var image = Image.Load<Rgba32>(data);
-        return ImageToSixel(image, maxSize);
+        return ImageToSixel(image, maxSize, sizeMode);
     }
 
     /// <summary>
@@ -114,11 +115,12 @@ public static class Sixel
     /// </summary>
     /// <param name="stream">An image data as a stram that will be encoded</param>
     /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
+    /// <param name="sizeMode">Image size mode</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(Stream stream, (int width, int height)? maxSize = null)
+    public static string ImageToSixel(Stream stream, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
     {
         var image = Image.Load<Rgba32>(stream);
-        return ImageToSixel(image, maxSize);
+        return ImageToSixel(image, maxSize, sizeMode);
     }
 
     /// <summary>
@@ -126,8 +128,9 @@ public static class Sixel
     /// </summary>
     /// <param name="image">Image to convert</param>
     /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
+    /// <param name="sizeMode">Image size mode</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(Image<Rgba32> image, (int width, int height)? maxSize = null)
+    public static string ImageToSixel(Image<Rgba32> image, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
     {
         var terminalSize = GetTerminalWindowSize();
 
@@ -136,12 +139,17 @@ public static class Sixel
             maxSize = terminalSize;
         }
 
+        var size = SizeCalculator.GetSize(new Size(maxSize.Value.width, maxSize.Value.height),
+                                          new Size(image.Width, image.Height),
+                                          sizeMode);
         image.Mutate(ctx =>
         {
             ctx.Resize(new ResizeOptions()
             {
                 Sampler = KnownResamplers.Bicubic,
-                Size = CalculateSize(image, maxSize.Value),
+                Size = size,
+                Mode = ResizeMode.Manual,
+                TargetRectangle = new Rectangle(new Point(), size),
                 PremultiplyAlpha = false,
             });
 
@@ -153,24 +161,6 @@ public static class Sixel
         });
         var targetFrame = image.Frames[0];
         return FrameToSixelString(targetFrame);
-    }
-
-    private static Size CalculateSize(Image<Rgba32> image, (int width, int height) maxSizeConstraint)
-    {
-        if (image.Width > maxSizeConstraint.width)
-        {
-            var ratio = (double)maxSizeConstraint.width / image.Width;
-            return new Size(maxSizeConstraint.width, (int)Math.Round(image.Height * ratio));
-        }
-        else if (image.Height > maxSizeConstraint.height)
-        {
-            var ratio = (double)maxSizeConstraint.height / image.Height;
-            return new Size((int)Math.Round(image.Width * ratio), maxSizeConstraint.height);
-        }
-        else
-        {
-            return new Size(image.Width, image.Height);
-        }
     }
 
     private static string FrameToSixelString(ImageFrame<Rgba32> frame)
