@@ -18,22 +18,6 @@ public static class WindowsTerminal
 {
     private static readonly string _localFragments = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows Terminal", "Fragments");
 
-    private static readonly JsonSerializerOptions _serializerOptions = CreateOptions();
-
-    private static JsonSerializerOptions CreateOptions()
-    {
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-            TypeInfoResolver = TerminalFragmentGenerationContext.Default
-        };
-        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageAlignment>(JsonNamingPolicy.CamelCase));
-        options.Converters.Add(new JsonStringEnumConverter<TerminalBackgroundImageStretchMode>(JsonNamingPolicy.CamelCase));
-        return options;
-    }
-
     private static string GetControlSequenceResponse(string controlSequence)
     {
         char? c = null;
