@@ -89,60 +89,56 @@ public static class Sixel
     /// Converts an image to a Sixel string
     /// </summary>
     /// <param name="file">An image file path to load and then encode to sixel</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <param name="sizeMode">Image size mode</param>
+    /// <param name="options">Sixel conversion options</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(string file, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
+    public static string ImageToSixel(string file, SixelOptions? options = null)
     {
         var image = Image.Load<Rgba32>(file);
-        return ImageToSixel(image, maxSize, sizeMode);
+        return ImageToSixel(image, options);
     }
 
     /// <summary>
     /// Converts an image to a Sixel string
     /// </summary>
     /// <param name="data">An image data as a byte array that will be encoded</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <param name="sizeMode">Image size mode</param>
+    /// <param name="options">Sixel conversion options</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(byte[] data, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
+    public static string ImageToSixel(byte[] data, SixelOptions? options = null)
     {
         var image = Image.Load<Rgba32>(data);
-        return ImageToSixel(image, maxSize, sizeMode);
+        return ImageToSixel(image, options);
     }
 
     /// <summary>
     /// Converts an image to a Sixel string
     /// </summary>
     /// <param name="stream">An image data as a stram that will be encoded</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <param name="sizeMode">Image size mode</param>
+    /// <param name="options">Sixel conversion options</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(Stream stream, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
+    public static string ImageToSixel(Stream stream, SixelOptions? options = null)
     {
         var image = Image.Load<Rgba32>(stream);
-        return ImageToSixel(image, maxSize, sizeMode);
+        return ImageToSixel(image, options);
     }
 
     /// <summary>
     /// Converts an image to a Sixel string
     /// </summary>
     /// <param name="image">Image to convert</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <param name="sizeMode">Image size mode</param>
+    /// <param name="options">Sixel conversion options</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    public static string ImageToSixel(Image<Rgba32> image, (int width, int height)? maxSize = null, SizeMode sizeMode = SizeMode.None)
+    public static string ImageToSixel(Image<Rgba32> image, SixelOptions? options = null)
     {
         var terminalSize = GetTerminalWindowSize();
 
-        if (!maxSize.HasValue)
-        {
-            maxSize = terminalSize;
-        }
+        SixelOptions currentOptions = options ?? new SixelOptions();
 
-        var size = SizeCalculator.GetSize(new Size(maxSize.Value.width, maxSize.Value.height),
+        if (!currentOptions.MaxSize.HasValue)
+            currentOptions.MaxSize = terminalSize;
+
+        var size = SizeCalculator.GetSize(new Size(currentOptions.MaxSize.Value.Width, currentOptions.MaxSize.Value.Height),
                                           new Size(image.Width, image.Height),
-                                          sizeMode);
+                                          currentOptions.SizeMode);
         image.Mutate(ctx =>
         {
             ctx.Resize(new ResizeOptions()
@@ -157,7 +153,7 @@ public static class Sixel
             // Sixel supports 256 colors max
             ctx.Quantize(new OctreeQuantizer(new()
             {
-                MaxColors = 256,
+                MaxColors = currentOptions.Colors,
             }));
         });
         var targetFrame = image.Frames[0];
