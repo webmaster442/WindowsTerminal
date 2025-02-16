@@ -1,3 +1,11 @@
+# 3.0.0
+ - Colors can now be specified in hsl() and rgb() CSS format in the `TerminalFormattedStringBuilder.WithForegroundColor(string color)` and `TerminalFormattedStringBuilder.WithBackgroundColor(string color)` methods.
+ - `WindowsTerminal` class now has a `GetPaletteColor(int index)` method, that returns the color of the specified palette index.
+- `Sixel.ImageToSixel`: Image is now properly resized, instead of cropped, if the image is larger than the specified size.
+- Added `Sixel.GetTerminalWindowSize()` method, that returns the current terminal window size in pixels.
+- `Sixel.ImageToSixel`: Removed versions where the `maxSize` can be specied as a tuple. Use the new `Sixel.ImageToSixel` variants, that accept a `SixelOptions` instead.
+
+
 # 2.0.0
 
 - Added .NET 8 support

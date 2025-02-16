@@ -113,16 +113,6 @@ public static class Sixel
     /// <summary>
     /// Converts an image to a Sixel string
     /// </summary>
-    /// <param name="file">An image file path to load and then encode to sixel</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    [Obsolete("Use ImageToSixel(string file, SixelOptions? options) instead")]
-    public static string ImageToSixel(string file, (int width, int height)? maxSize = null)
-        => ImageToSixel(file, SixelOptions.Default with { MaxSize = maxSize });
-
-    /// <summary>
-    /// Converts an image to a Sixel string
-    /// </summary>
     /// <param name="data">An image data as a byte array that will be encoded</param>
     /// <param name="options">Sixel conversion options</param>
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
@@ -139,17 +129,6 @@ public static class Sixel
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
     public static string ImageToSixel(byte[] data)
         => ImageToSixel(data, SixelOptions.Default);
-
-
-    /// <summary>
-    /// Converts an image to a Sixel string
-    /// </summary>
-    /// <param name="data">An image data as a byte array that will be encoded</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    [Obsolete("Use ImageToSixel(string file, SixelOptions? options) instead")]
-    public static string ImageToSixel(byte[] data, (int width, int height)? maxSize = null)
-        => ImageToSixel(data, SixelOptions.Default with { MaxSize = maxSize });
 
     /// <summary>
     /// Converts an image to a Sixel string
@@ -170,16 +149,6 @@ public static class Sixel
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
     public static string ImageToSixel(Stream stream)
         => ImageToSixel(stream, SixelOptions.Default);
-
-    /// <summary>
-    /// Converts an image to a Sixel string
-    /// </summary>
-    /// <param name="stream">An image data as a stram that will be encoded</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    [Obsolete("Use ImageToSixel(string file, SixelOptions? options) instead")]
-    public static string ImageToSixel(Stream stream, (int width, int height)? maxSize = null)
-        => ImageToSixel(stream, SixelOptions.Default with { MaxSize = maxSize });
 
     /// <summary>
     /// Converts an image to a Sixel string
@@ -225,17 +194,6 @@ public static class Sixel
     /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
     public static string ImageToSixel(Image<Rgba32> image)
         => ImageToSixel(image, SixelOptions.Default);
-
-
-    /// <summary>
-    /// Converts an image to a Sixel string
-    /// </summary>
-    /// <param name="image">Image to convert</param>
-    /// <param name="maxSize">Max size. If not specified, Terminal Window size is used</param>
-    /// <returns>Image encoded as a sixel string. Can be displayed With Console.Write</returns>
-    [Obsolete("Use ImageToSixel(string file, SixelOptions? options) instead")]
-    public static string ImageToSixel(Image<Rgba32> image, (int width, int height)? maxSize = null)
-        => ImageToSixel(image, SixelOptions.Default with { MaxSize = maxSize });
 
     private static string FrameToSixelString(ImageFrame<Rgba32> frame)
     {
