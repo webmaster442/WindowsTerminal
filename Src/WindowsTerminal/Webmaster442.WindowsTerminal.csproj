@@ -25,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Webmaster442.WindowsTerminal.Tests"/>
+    <InternalsVisibleTo Include="Webmaster442.WindowsTerminal.Tests" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +45,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="9.0.1" Condition="'$(TargetFramework)' == 'net8.0'"/>
+    <PackageReference Include="System.Text.Json" Version="9.0.2" Condition="'$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
 </Project>
