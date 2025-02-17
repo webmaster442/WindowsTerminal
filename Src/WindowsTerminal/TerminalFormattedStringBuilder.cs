@@ -137,7 +137,6 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder WithForegroundColor(ConsoleColor color)
         => WithForegroundColor(ToTerminalColor(color));
 
-
     /// <summary>
     /// Set foreground color to a 24 bit RGB color
     /// </summary>
@@ -381,12 +380,14 @@ public sealed class TerminalFormattedStringBuilder
 
     /// <summary>
     /// Append a nerd font icon to the output. Terminal needs to have a nerd font installed
+    /// Cheat sheet: https://www.nerdfonts.com/cheat-sheet
     /// </summary>
-    /// <param name="nerdFont">Nerd font icon to display</param>
+    /// <param name="nerdFont">Nerd font icon codepoint to display</param>
+    /// <seealso cref="NerdFontIcons"/>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithNerdFont(NerdFontIcon nerdFont)
+    public TerminalFormattedStringBuilder WithNerdFont(int nerdFont)
     {
-        _builder.Append(char.ConvertFromUtf32((int)nerdFont));
+        _builder.Append(char.ConvertFromUtf32(nerdFont));
         return this;
     }
 
@@ -396,5 +397,4 @@ public sealed class TerminalFormattedStringBuilder
     /// <returns>a string with ANSI escape codes</returns>
     public override string ToString()
         => _builder.ToString();
-
 }
