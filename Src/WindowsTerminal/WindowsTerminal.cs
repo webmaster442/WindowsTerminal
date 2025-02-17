@@ -5,7 +5,6 @@
 
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 using Webmaster442.WindowsTerminal.Internals;
 
@@ -16,11 +15,10 @@ namespace Webmaster442.WindowsTerminal;
 /// </summary>
 public static class WindowsTerminal
 {
-    private static readonly string _localFragments = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows Terminal", "Fragments");
+    private static readonly string LocalFragments = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows Terminal", "Fragments");
 
     private static string GetControlSequenceResponse(string controlSequence)
     {
-        char? c = null;
         var response = new StringBuilder();
 
         try
@@ -29,7 +27,7 @@ public static class WindowsTerminal
             Thread.Sleep(20);
             while (Console.KeyAvailable)
             {
-                c = Console.ReadKey(true).KeyChar;
+                char? c = Console.ReadKey(true).KeyChar;
                 response.Append(c);
             }
             return response.ToString();
@@ -74,7 +72,7 @@ public static class WindowsTerminal
         /// </summary>
         /// <returns>an array of terminal json fragments present in the LocalApplicationData</returns>
         public static string[] GetLocalFragments()
-            => Directory.GetFiles(_localFragments, "*.json", SearchOption.AllDirectories);
+            => Directory.GetFiles(LocalFragments, "*.json", SearchOption.AllDirectories);
 
         /// <summary>
         /// Returns true, if a JSON Fragment extextension is installed
@@ -83,7 +81,7 @@ public static class WindowsTerminal
         /// <param name="fragmentName">fragment json name</param>
         /// <returns>True, if extension is installed</returns>
         public static bool IsFragmentInstalled(string appName, string fragmentName)
-            => File.Exists(Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json")));
+            => File.Exists(Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json")));
 
         /// <summary>
         /// Try to remove a terminal fragment from the LocalApplicationData
@@ -95,7 +93,7 @@ public static class WindowsTerminal
         {
             try
             {
-                var filePath = Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
+                var filePath = Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
@@ -120,13 +118,13 @@ public static class WindowsTerminal
         {
             try
             {
-                var fragmentFolder = Path.Combine(_localFragments, appName);
+                var fragmentFolder = Path.Combine(LocalFragments, appName);
                 if (!Directory.Exists(fragmentFolder))
                 {
                     Directory.CreateDirectory(fragmentFolder);
                 }
                 var filePath = Path.Combine(fragmentFolder, Path.ChangeExtension(fragmentName, ".json"));
-                using var stream = File.Create(filePath);
+                await using var stream = File.Create(filePath);
                 await JsonSerializer.SerializeAsync(stream, terminalFragment, typeof(TerminalFragment), TerminalFragmentGenerationContext.Default);
                 return true;
             }
@@ -144,16 +142,15 @@ public static class WindowsTerminal
         /// <returns>Terminal fragment data</returns>
         public static async Task<TerminalFragment?> ReadFragmentAsync(string appName, string fragmentName)
         {
-            var filePath = Path.Combine(_localFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
+            var filePath = Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
             if (!File.Exists(filePath))
             {
                 return null;
             }
-            using var stream = File.OpenRead(filePath);
+            await using var stream = File.OpenRead(filePath);
             return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, TerminalFragmentGenerationContext.Default.TerminalFragment);
         }
     }
-
 
     /// <summary>
     /// Set the progressbar state
@@ -214,7 +211,7 @@ public static class WindowsTerminal
         /// The start of the command output / the end of the commandline
         /// </summary>
         public static void CommandExecuted()
-            => Console.Write($"\e]133;C\a");
+            => Console.Write("\e]133;C\a");
 
         /// <summary>
         /// Signal the end of the command

@@ -24,14 +24,13 @@ public static class Sixel
     private const char SIXELREPEAT = '!';
     private const char SIXELDECGCR = '$';
     private const char SIXELDECGNL = '-';
-    private const string SIXELSTART = $"\eP0;1q";
-    private const string SIXELEND = $"\e\\";
+    private const string SIXELSTART = "\eP0;1q";
+    private const string SIXELEND = "\e\\";
     private const string SIXELTRANSPARENTCOLOR = "#0;2;0;0;0";
     private const string SIXELRASTERATTRIBUTES = "\"1;1;";
 
     private static string GetControlSequenceResponse(string controlSequence)
     {
-        char? c = null;
         var response = new StringBuilder();
 
         try
@@ -40,7 +39,7 @@ public static class Sixel
             Thread.Sleep(20);
             while (Console.KeyAvailable)
             {
-                c = Console.ReadKey(true).KeyChar;
+                char? c = Console.ReadKey(true).KeyChar;
                 response.Append(c);
             }
             return response.ToString();
@@ -65,11 +64,9 @@ public static class Sixel
         try
         {
             var parts = response.Split(';', 't');
-            if (parts.Length > 2)
-            {
-                return (width: int.Parse(parts[2]) * Console.WindowWidth, hegiht: int.Parse(parts[1]) * Console.WindowHeight);
-            }
-            return DefaultSize();
+            return parts.Length > 2
+                ? (width: int.Parse(parts[2]) * Console.WindowWidth, hegiht: int.Parse(parts[1]) * Console.WindowHeight)
+                : DefaultSize();
         }
         catch (FormatException)
         {
