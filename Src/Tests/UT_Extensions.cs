@@ -14,7 +14,7 @@ public class UT_Extensions
     [TestCase("#262335", 38, 35, 53)]
     [TestCase("rgb(38, 35, 53)", 38, 35, 53)]
     [TestCase("hsl(250, 20%, 17%)", 38, 35, 53)]
-    public void TestRgb(string rgb, byte r, byte g, byte b)
+    public void ToRrbParsesSupported(string rgb, byte r, byte g, byte b)
     {
         var result = Extensions.ToRgb(rgb);
         Assert.Multiple(() =>
