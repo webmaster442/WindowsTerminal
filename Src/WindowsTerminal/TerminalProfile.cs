@@ -119,8 +119,8 @@ public record class TerminalProfile
     public string? Icon { get; init; }
 
     /// <summary>
-    /// If set, this will replace the name as the title to pass to the shell on startup. 
-    /// Some shells (like bash) may choose to ignore this initial value, while others (Command Prompt, PowerShell) may 
+    /// If set, this will replace the name as the title to pass to the shell on startup.
+    /// Some shells (like bash) may choose to ignore this initial value, while others (Command Prompt, PowerShell) may
     /// use this value over the lifetime of the application.
     /// </summary>
     [JsonPropertyName("tabTitle")]
@@ -133,7 +133,7 @@ public record class TerminalProfile
     public bool Elevate { get; init; }
 
     /// <summary>
-    /// If hidden is set to true, the profile will not appear in the list of profiles. 
+    /// If hidden is set to true, the profile will not appear in the list of profiles.
     /// This can be used to hide default profiles and dynamically generated profiles
     /// </summary>
     [JsonPropertyName("hidden")]
@@ -142,11 +142,13 @@ public record class TerminalProfile
     /// <summary>
     /// This is the name of the color scheme used in the profile. Color schemes are defined in the schemes object.
     /// </summary>
+    /// <seealso cref="TerminalSchemes"/>
+    /// <seealso cref="TerminalScheme"/>
     [JsonPropertyName("colorScheme")]
     public string? ColorScheme { get; init; }
 
     /// <summary>
-    /// When this is set to true, the window will have an acrylic background. When it's set to false, the window will have a plain, untextured background. 
+    /// When this is set to true, the window will have an acrylic background. When it's set to false, the window will have a plain, untextured background.
     /// </summary>
     [JsonPropertyName("useAcrylic")]
     public bool UseAcrylic { get; init; }

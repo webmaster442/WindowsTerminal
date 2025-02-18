@@ -44,7 +44,7 @@ public static class InstallDetector
         string? psCorePath = null;
         string? vsCodePath = null;
 
-        string[] pathDirs = Environment.GetEnvironmentVariable("path")?.Split(';') ?? Array.Empty<string>();
+        string[] pathDirs = Environment.GetEnvironmentVariable("path")?.Split(';') ?? [];
         foreach (string? dir in pathDirs)
         {
             if (string.IsNullOrEmpty(dir)) continue;

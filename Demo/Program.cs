@@ -13,6 +13,8 @@ WaitForKeyPress();
 
 Colors256Demo();
 
+GetPaletteColors();
+
 WaitForKeyPress();
 
 Colors24BitDemo();
@@ -31,13 +33,62 @@ ShellIntegrationDemo();
 
 SixelDemo();
 
+void GetPaletteColors()
+{
+    Console.Clear();
+    Console.WriteLine("Palette colors");
+    for (int i = 0; i < 15; i++)
+    {
+        var (r, g, b) = WindowsTerminal.GetPaletteColor(i);
+        Console.WriteLine(builder.New()
+            .WithForegroundColor(r, g, b)
+            .Append("█")
+            .ResetFormat()
+            .AppendLine($" Color {i}: R:{r} G:{g} B:{b}"));
+    }
+}
+
 void SixelDemo()
 {
+    Console.Clear();
     Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
 
+    Console.WriteLine("512x512, SizeMode = None");
     var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
     var img = Sixel.ImageToSixel(imagePath);
     Console.Write(img);
+
+    Console.WriteLine("384x128, SizeMode = Fit");
+    var fit = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Fit
+    });
+    Console.Write(fit);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitWidth = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitWidth
+    });
+    Console.Write(fitWidth);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitHeight = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitHeight
+    });
+    Console.Write(fitHeight);
+
+    Console.WriteLine("384x128, SizeMode = Manual");
+    var manual = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Manual
+    });
+    Console.Write(manual);
 }
 
 void MusicDemo()

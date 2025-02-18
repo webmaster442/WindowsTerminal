@@ -28,6 +28,12 @@ public sealed class TerminalFragment
     public List<TerminalScheme> Schemes { get; } = new();
 
     /// <summary>
+    /// Actions that will be added to the command palette.
+    /// </summary>
+    [JsonPropertyName("actions")]
+    public List<TerminalAction> Actions { get; } = new();
+
+    /// <summary>
     /// Convert this instance to a JSON string
     /// </summary>
     /// <returns>Object data as JSON</returns>
