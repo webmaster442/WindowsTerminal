@@ -383,7 +383,6 @@ public sealed class TerminalFormattedStringBuilder
     /// Cheat sheet: https://www.nerdfonts.com/cheat-sheet
     /// </summary>
     /// <param name="nerdFont">Nerd font icon codepoint to display</param>
-    /// <seealso cref="NerdFontIcons"/>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
     public TerminalFormattedStringBuilder WithNerdFont(int nerdFont)
     {
