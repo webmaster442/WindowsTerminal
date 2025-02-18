@@ -172,6 +172,13 @@ public static class WindowsTerminal
         => Environment.GetEnvironmentVariable("WT_SESSION") != null;
 
     /// <summary>
+    /// Get the current session id
+    /// </summary>
+    /// <returns>The current windows Session id. Returns null, if program is not running in Windows Terminal</returns>
+    public static string? GetCurrentSessionId()
+        => Environment.GetEnvironmentVariable("WT_SESSION");
+
+    /// <summary>
     /// Set the window title
     /// </summary>
     /// <param name="title">Title to set</param>
