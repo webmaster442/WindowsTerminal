@@ -1,4 +1,9 @@
-﻿using System.Diagnostics;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
