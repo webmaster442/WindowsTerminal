@@ -172,31 +172,16 @@ void ProgrssbarDemo()
 {
     WindowsTerminal.SetWindowTitle("Progressbar demo");
 
-    Console.WriteLine("Normal progress");
+    Progressbar progressbar = new();
+    progressbar.Show();
     int done = 0;
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i <= 50; i++)
     {
-        WindowsTerminal.SetProgressbar(ProgressbarState.Default, i);
+        progressbar.Report(done);
         Thread.Sleep(50);
         done += 2;
     }
-
-    Console.WriteLine("Error 50% progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Error, 50);
-    Thread.Sleep(3000);
-
-    Console.WriteLine("Indeterminate progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Indeterminate, 0);
-    Thread.Sleep(3000);
-
-    Console.WriteLine("Warning 75% progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Warning, 75);
-    Thread.Sleep(3000);
-
-    Console.WriteLine("Hidden progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Hidden, 0);
-
-    WindowsTerminal.SetWindowTitle("");
+    progressbar.Hide();
 }
 
 async Task FragmentInstallDemo()
