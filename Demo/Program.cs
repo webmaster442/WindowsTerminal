@@ -33,6 +33,8 @@ ShellIntegrationDemo();
 
 SixelDemo();
 
+PagerDemo();
+
 void GetPaletteColors()
 {
     Console.Clear();
@@ -249,4 +251,11 @@ void ShellIntegrationDemo()
     WindowsTerminal.ShellIntegration.CommandExecuted();
     Console.WriteLine($"Command: {command}");
     WindowsTerminal.ShellIntegration.CommandFinished(0);
+}
+
+void PagerDemo()
+{
+    using var reader = File.OpenText(Path.Combine(AppContext.BaseDirectory, "LoremIpsum.txt"));
+    var pager = new Pager(reader);
+    pager.Show();
 }

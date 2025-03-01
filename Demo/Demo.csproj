@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Src\WindowsTerminal\Webmaster442.WindowsTerminal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="LoremIpsum.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

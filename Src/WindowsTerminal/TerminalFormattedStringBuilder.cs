@@ -18,84 +18,117 @@ public sealed class TerminalFormattedStringBuilder
 {
     private readonly StringBuilder _builder;
 
-    private static TerminalColor ToTerminalColor(ConsoleColor consoleColor)
-    {
-        return consoleColor switch
-        {
-            ConsoleColor.Black => TerminalColor.Black,
-            ConsoleColor.DarkRed => TerminalColor.Red,
-            ConsoleColor.DarkGreen => TerminalColor.Green,
-            ConsoleColor.DarkYellow => TerminalColor.Yellow,
-            ConsoleColor.DarkBlue => TerminalColor.Blue,
-            ConsoleColor.DarkMagenta => TerminalColor.Magenta,
-            ConsoleColor.DarkCyan => TerminalColor.Cyan,
-            ConsoleColor.Gray => TerminalColor.White,
-            ConsoleColor.DarkGray => TerminalColor.BrightBlack,
-            ConsoleColor.Red => TerminalColor.BrightRed,
-            ConsoleColor.Green => TerminalColor.BrightGreen,
-            ConsoleColor.Yellow => TerminalColor.BrightYellow,
-            ConsoleColor.Blue => TerminalColor.BrightBlue,
-            ConsoleColor.Magenta => TerminalColor.BrightMagenta,
-            ConsoleColor.Cyan => TerminalColor.BrightCyan,
-            ConsoleColor.White => TerminalColor.BrightWhite,
-            _ => throw new UnreachableException(),
-        };
-    }
-
-    private static string ToForegroundColor(TerminalColor color)
-    {
-        return color switch
-        {
-            TerminalColor.Black => "\e[30m",
-            TerminalColor.Red => "\e[31m",
-            TerminalColor.Green => "\e[32m",
-            TerminalColor.Yellow => "\e[33m",
-            TerminalColor.Blue => "\e[34m",
-            TerminalColor.Magenta => "\e[35m",
-            TerminalColor.Cyan => "\e[36m",
-            TerminalColor.White => "\e[37m",
-            TerminalColor.BrightBlack => "\e[30;1m",
-            TerminalColor.BrightRed => "\e[31;1m",
-            TerminalColor.BrightGreen => "\e[32;1m",
-            TerminalColor.BrightYellow => "\e[33;1m",
-            TerminalColor.BrightBlue => "\e[34;1m",
-            TerminalColor.BrightMagenta => "\e[35;1m",
-            TerminalColor.BrightCyan => "\e[36;1m",
-            TerminalColor.BrightWhite => "\e[37;1m",
-            _ => throw new UnreachableException(),
-        };
-    }
-
-    private static string ToBackgroundColor(TerminalColor color)
-    {
-        return color switch
-        {
-            TerminalColor.Black => "\e[40m",
-            TerminalColor.Red => "\e[41m",
-            TerminalColor.Green => "\e[42m",
-            TerminalColor.Yellow => "\e[43m",
-            TerminalColor.Blue => "\e[44m",
-            TerminalColor.Magenta => "\e[45m",
-            TerminalColor.Cyan => "\e[46m",
-            TerminalColor.White => "\e[47m",
-            TerminalColor.BrightBlack => "\e[40;1m",
-            TerminalColor.BrightRed => "\e[41;1m",
-            TerminalColor.BrightGreen => "\e[42;1m",
-            TerminalColor.BrightYellow => "\e[43;1m",
-            TerminalColor.BrightBlue => "\e[44;1m",
-            TerminalColor.BrightMagenta => "\e[45;1m",
-            TerminalColor.BrightCyan => "\e[46;1m",
-            TerminalColor.BrightWhite => "\e[47;1m",
-            _ => throw new UnreachableException(),
-        };
-    }
-
     /// <summary>
     /// Create a new instance of TerminalFormattedStringBuilder
     /// </summary>
     public TerminalFormattedStringBuilder()
     {
         _builder = new(4096);
+    }
+
+    /// <summary>
+    /// Append a text to the formatted string
+    /// </summary>
+    /// <param name="text">text</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(string text)
+    {
+        _builder.Append(text);
+        return this;
+    }
+
+    /// <summary>
+    ///  Appends the string representation of a specified System.Char object to this instance.
+    /// </summary>
+    /// <param name="chr">The UTF-16-encoded code unit to append.</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(char chr)
+    {
+        _builder.Append(chr);
+        return this;
+    }
+
+    /// <summary>
+    /// Appends a specified number of copies of the string representation of a Unicode character to this instance.
+    /// </summary>
+    /// <param name="chr">The UTF-16-encoded code unit to append.</param>
+    /// <param name="repeatCount">The number of times to append chr.</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(char chr, int repeatCount)
+    {
+        _builder.Append(chr, repeatCount);
+        return this;
+    }
+
+    /// <summary>
+    /// Appends the string representation of a specified object to this instance.
+    /// </summary>
+    /// <param name="obj">object to append</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder Append(object? obj)
+    {
+        _builder.Append(obj);
+        return this;
+    }
+
+    /// <summary>
+    ///  Appends the string returned by processing a composite format string, which contains zero or more format items,
+    ///  to this instance. Each format item is replaced by  the string representation of a corresponding argument in a parameter array.
+    /// </summary>
+    /// <param name="format">A composite format string.</param>
+    /// <param name="args">An array of objects to format.</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendFormat([StringSyntax("CompositeFormat")] string format, params object?[] args)
+    {
+        _builder.AppendFormat(format, args);
+        return this;
+    }
+
+    /// <summary>
+    /// Concatenates and appends the members of a collection, using the specified separator between each member.
+    /// </summary>
+    /// <typeparam name="T">The type of the members of values.</typeparam>
+    /// <param name="separator">The character to use as a separator. separator is included in the concatenated and appended strings only if values has more than one element.</param>
+    /// <param name="values">A collection that contains the objects to concatenate and append to the current TerminalFormattedStringBuilder</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendJoin<T>(char separator, IEnumerable<T> values)
+    {
+        _builder.AppendJoin(separator, values);
+        return this;
+    }
+
+    /// <summary>
+    /// Concatenates and appends the members of a collection, using the specified separator between each member.
+    /// </summary>
+    /// <typeparam name="T">The type of the members of values.</typeparam>
+    /// <param name="separator">The string to use as a separator. separator is included in the concatenated and appended strings only if values has more than one element.</param>
+    /// <param name="values">A collection that contains the objects to concatenate and append to the current TerminalFormattedStringBuilder</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendJoin<T>(string? separator, IEnumerable<T> values)
+    {
+        _builder.AppendJoin(separator, values);
+        return this;
+    }
+
+    /// <summary>
+    /// Append a line to the formatted string
+    /// </summary>
+    /// <param name="text">text</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendLine(string text)
+    {
+        _builder.AppendLine(text);
+        return this;
+    }
+
+    /// <summary>
+    /// Append a line to the formatted string
+    /// </summary>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendLine()
+    {
+        _builder.AppendLine();
+        return this;
     }
 
     /// <summary>
@@ -119,62 +152,11 @@ public sealed class TerminalFormattedStringBuilder
     }
 
     /// <summary>
-    /// Set foreground color to a standard color
+    /// Convert the formatted string to a string
     /// </summary>
-    /// <param name="color">Color to use</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithForegroundColor(TerminalColor color)
-    {
-        _builder.Append(ToForegroundColor(color));
-        return this;
-    }
-
-    /// <summary>
-    /// Set foreground color to a standard color
-    /// </summary>
-    /// <param name="color">Color to use</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithForegroundColor(ConsoleColor color)
-        => WithForegroundColor(ToTerminalColor(color));
-
-    /// <summary>
-    /// Set foreground color to a 24 bit RGB color
-    /// </summary>
-    /// <param name="color">color in hex format (E.g: #ffffff) or rgb format (E.g: rgb(255, 255, 255)) or hsl format. (E.g: hsl(0, 0%, 100%))</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    /// <exception cref="FormatException">The color was not one of the supported formats.</exception>
-    public TerminalFormattedStringBuilder WithForegroundColor(string color)
-    {
-        var (r, g, b) = color.ToRgb();
-        return WithForegroundColor(r, g, b);
-    }
-
-    /// <summary>
-    /// Set foreground color to a 24 bit RGB color
-    /// </summary>
-    /// <param name="r">red value</param>
-    /// <param name="g">green value</param>
-    /// <param name="b">blue value</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithForegroundColor(byte r, byte g, byte b)
-    {
-        _builder.Append($"\e[38;2;{r};{g};{b}m");
-        return this;
-    }
-
-    /// <summary>
-    /// Set foreground color to a 256 color index.
-    /// Color index must be between 0 and 255
-    /// </summary>
-    /// <param name="index">color index to use</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithForegroundColor(int index)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(index, 255);
-        _builder.Append($"\e[38;5;{index}m");
-        return this;
-    }
+    /// <returns>a string with ANSI escape codes</returns>
+    public override string ToString()
+        => _builder.ToString();
 
     /// <summary>
     /// Set background color to a standard color
@@ -243,23 +225,62 @@ public sealed class TerminalFormattedStringBuilder
         _builder.Append("\e[1m");
         return this;
     }
+
     /// <summary>
-    /// Set text to italic
+    /// Set foreground color to a standard color
     /// </summary>
+    /// <param name="color">Color to use</param>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithItalic()
+    public TerminalFormattedStringBuilder WithForegroundColor(TerminalColor color)
     {
-        _builder.Append("\e[3m");
+        _builder.Append(ToForegroundColor(color));
         return this;
     }
 
     /// <summary>
-    /// Set text to underline
+    /// Set foreground color to a standard color
     /// </summary>
+    /// <param name="color">Color to use</param>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithUnderline()
+    public TerminalFormattedStringBuilder WithForegroundColor(ConsoleColor color)
+        => WithForegroundColor(ToTerminalColor(color));
+
+    /// <summary>
+    /// Set foreground color to a 24 bit RGB color
+    /// </summary>
+    /// <param name="color">color in hex format (E.g: #ffffff) or rgb format (E.g: rgb(255, 255, 255)) or hsl format. (E.g: hsl(0, 0%, 100%))</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    /// <exception cref="FormatException">The color was not one of the supported formats.</exception>
+    public TerminalFormattedStringBuilder WithForegroundColor(string color)
     {
-        _builder.Append("\e[4m");
+        var (r, g, b) = color.ToRgb();
+        return WithForegroundColor(r, g, b);
+    }
+
+    /// <summary>
+    /// Set foreground color to a 24 bit RGB color
+    /// </summary>
+    /// <param name="r">red value</param>
+    /// <param name="g">green value</param>
+    /// <param name="b">blue value</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithForegroundColor(byte r, byte g, byte b)
+    {
+        _builder.Append($"\e[38;2;{r};{g};{b}m");
+        return this;
+    }
+
+    /// <summary>
+    /// Set foreground color to a 256 color index.
+    /// Color index must be between 0 and 255
+    /// </summary>
+    /// <param name="index">color index to use</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithForegroundColor(int index)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(index, 0);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(index, 255);
+        _builder.Append($"\e[38;5;{index}m");
         return this;
     }
 
@@ -274,107 +295,12 @@ public sealed class TerminalFormattedStringBuilder
     }
 
     /// <summary>
-    /// Append a text to the formatted string
-    /// </summary>
-    /// <param name="text">text</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder Append(string text)
-    {
-        _builder.Append(text);
-        return this;
-    }
-
-    /// <summary>
-    ///  Appends the string representation of a specified System.Char object to this instance.
-    /// </summary>
-    /// <param name="chr">The UTF-16-encoded code unit to append.</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder Append(char chr)
-    {
-        _builder.Append(chr);
-        return this;
-    }
-
-    /// <summary>
-    /// Appends a specified number of copies of the string representation of a Unicode character to this instance.
-    /// </summary>
-    /// <param name="chr">The UTF-16-encoded code unit to append.</param>
-    /// <param name="repeatCount">The number of times to append chr.</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder Append(char chr, int repeatCount)
-    {
-        _builder.Append(chr, repeatCount);
-        return this;
-    }
-
-    /// <summary>
-    /// Appends the string representation of a specified object to this instance.
-    /// </summary>
-    /// <param name="obj">object to append</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder Append(object? obj)
-    {
-        _builder.Append(obj);
-        return this;
-    }
-
-    /// <summary>
-    /// Append a line to the formatted string
-    /// </summary>
-    /// <param name="text">text</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder AppendLine(string text)
-    {
-        _builder.AppendLine(text);
-        return this;
-    }
-
-    /// <summary>
-    /// Append a line to the formatted string
+    /// Set text to italic
     /// </summary>
     /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder AppendLine()
+    public TerminalFormattedStringBuilder WithItalic()
     {
-        _builder.AppendLine();
-        return this;
-    }
-
-    /// <summary>
-    ///  Appends the string returned by processing a composite format string, which contains zero or more format items,
-    ///  to this instance. Each format item is replaced by  the string representation of a corresponding argument in a parameter array.
-    /// </summary>
-    /// <param name="format">A composite format string.</param>
-    /// <param name="args">An array of objects to format.</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder AppendFormat([StringSyntax("CompositeFormat")] string format, params object?[] args)
-    {
-        _builder.AppendFormat(format, args);
-        return this;
-    }
-
-    /// <summary>
-    /// Concatenates and appends the members of a collection, using the specified separator between each member.
-    /// </summary>
-    /// <typeparam name="T">The type of the members of values.</typeparam>
-    /// <param name="separator">The character to use as a separator. separator is included in the concatenated and appended strings only if values has more than one element.</param>
-    /// <param name="values">A collection that contains the objects to concatenate and append to the current TerminalFormattedStringBuilder</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder AppendJoin<T>(char separator, IEnumerable<T> values)
-    {
-        _builder.AppendJoin(separator, values);
-        return this;
-    }
-
-    /// <summary>
-    /// Concatenates and appends the members of a collection, using the specified separator between each member.
-    /// </summary>
-    /// <typeparam name="T">The type of the members of values.</typeparam>
-    /// <param name="separator">The string to use as a separator. separator is included in the concatenated and appended strings only if values has more than one element.</param>
-    /// <param name="values">A collection that contains the objects to concatenate and append to the current TerminalFormattedStringBuilder</param>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder AppendJoin<T>(string? separator, IEnumerable<T> values)
-    {
-        _builder.AppendJoin(separator, values);
+        _builder.Append("\e[3m");
         return this;
     }
 
@@ -391,9 +317,84 @@ public sealed class TerminalFormattedStringBuilder
     }
 
     /// <summary>
-    /// Convert the formatted string to a string
+    /// Set text to underline
     /// </summary>
-    /// <returns>a string with ANSI escape codes</returns>
-    public override string ToString()
-        => _builder.ToString();
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithUnderline()
+    {
+        _builder.Append("\e[4m");
+        return this;
+    }
+
+    private static string ToBackgroundColor(TerminalColor color)
+    {
+        return color switch
+        {
+            TerminalColor.Black => "\e[40m",
+            TerminalColor.Red => "\e[41m",
+            TerminalColor.Green => "\e[42m",
+            TerminalColor.Yellow => "\e[43m",
+            TerminalColor.Blue => "\e[44m",
+            TerminalColor.Magenta => "\e[45m",
+            TerminalColor.Cyan => "\e[46m",
+            TerminalColor.White => "\e[47m",
+            TerminalColor.BrightBlack => "\e[40;1m",
+            TerminalColor.BrightRed => "\e[41;1m",
+            TerminalColor.BrightGreen => "\e[42;1m",
+            TerminalColor.BrightYellow => "\e[43;1m",
+            TerminalColor.BrightBlue => "\e[44;1m",
+            TerminalColor.BrightMagenta => "\e[45;1m",
+            TerminalColor.BrightCyan => "\e[46;1m",
+            TerminalColor.BrightWhite => "\e[47;1m",
+            _ => throw new UnreachableException(),
+        };
+    }
+
+    private static string ToForegroundColor(TerminalColor color)
+    {
+        return color switch
+        {
+            TerminalColor.Black => "\e[30m",
+            TerminalColor.Red => "\e[31m",
+            TerminalColor.Green => "\e[32m",
+            TerminalColor.Yellow => "\e[33m",
+            TerminalColor.Blue => "\e[34m",
+            TerminalColor.Magenta => "\e[35m",
+            TerminalColor.Cyan => "\e[36m",
+            TerminalColor.White => "\e[37m",
+            TerminalColor.BrightBlack => "\e[30;1m",
+            TerminalColor.BrightRed => "\e[31;1m",
+            TerminalColor.BrightGreen => "\e[32;1m",
+            TerminalColor.BrightYellow => "\e[33;1m",
+            TerminalColor.BrightBlue => "\e[34;1m",
+            TerminalColor.BrightMagenta => "\e[35;1m",
+            TerminalColor.BrightCyan => "\e[36;1m",
+            TerminalColor.BrightWhite => "\e[37;1m",
+            _ => throw new UnreachableException(),
+        };
+    }
+
+    private static TerminalColor ToTerminalColor(ConsoleColor consoleColor)
+    {
+        return consoleColor switch
+        {
+            ConsoleColor.Black => TerminalColor.Black,
+            ConsoleColor.DarkRed => TerminalColor.Red,
+            ConsoleColor.DarkGreen => TerminalColor.Green,
+            ConsoleColor.DarkYellow => TerminalColor.Yellow,
+            ConsoleColor.DarkBlue => TerminalColor.Blue,
+            ConsoleColor.DarkMagenta => TerminalColor.Magenta,
+            ConsoleColor.DarkCyan => TerminalColor.Cyan,
+            ConsoleColor.Gray => TerminalColor.White,
+            ConsoleColor.DarkGray => TerminalColor.BrightBlack,
+            ConsoleColor.Red => TerminalColor.BrightRed,
+            ConsoleColor.Green => TerminalColor.BrightGreen,
+            ConsoleColor.Yellow => TerminalColor.BrightYellow,
+            ConsoleColor.Blue => TerminalColor.BrightBlue,
+            ConsoleColor.Magenta => TerminalColor.BrightMagenta,
+            ConsoleColor.Cyan => TerminalColor.BrightCyan,
+            ConsoleColor.White => TerminalColor.BrightWhite,
+            _ => throw new UnreachableException(),
+        };
+    }
 }

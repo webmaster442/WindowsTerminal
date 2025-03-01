@@ -17,26 +17,18 @@ public static class WindowsTerminal
 {
     private static readonly string LocalFragments = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows Terminal", "Fragments");
 
-    private static string GetControlSequenceResponse(string controlSequence)
-    {
-        var response = new StringBuilder();
+    /// <summary>
+    /// Checks if the current output is UTF8 or not
+    /// </summary>
+    public static bool IsOutputUtf8
+        => Console.OutputEncoding.CodePage == Encoding.UTF8.CodePage;
 
-        try
-        {
-            Console.Write(controlSequence);
-            Thread.Sleep(20);
-            while (Console.KeyAvailable)
-            {
-                char? c = Console.ReadKey(true).KeyChar;
-                response.Append(c);
-            }
-            return response.ToString();
-        }
-        catch (IOException)
-        {
-            return string.Empty;
-        }
-    }
+    /// <summary>
+    /// Get the current session id
+    /// </summary>
+    /// <returns>The current windows Session id. Returns null, if program is not running in Windows Terminal</returns>
+    public static string? GetCurrentSessionId()
+        => Environment.GetEnvironmentVariable("WT_SESSION");
 
     /// <summary>
     /// Get the specified color of the current terminal palette
@@ -62,6 +54,64 @@ public static class WindowsTerminal
     }
 
     /// <summary>
+    /// Check if the current program is running inside the Windows Terminal
+    /// </summary>
+    /// <returns>True, if App is running inside windows terminal</returns>
+    public static bool IsRunningInsideWindowsTerminal()
+        => Environment.GetEnvironmentVariable("WT_SESSION") != null;
+
+    /// <summary>
+    /// Set the progressbar state
+    /// </summary>
+    /// <param name="progressbarState">Progress bar state</param>
+    /// <param name="value">progress bar value</param>
+    public static void SetProgressbar(ProgressbarState progressbarState, int value)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(value, 100);
+        Console.Write($"\e]9;4;{(int)progressbarState};{value}\a");
+    }
+
+    /// <summary>
+    /// Set the window title
+    /// </summary>
+    /// <param name="title">Title to set</param>
+    public static void SetWindowTitle(string title)
+        => Console.Write($"\e]0;{title}\a");
+
+    /// <summary>
+    /// Switch to alternate buffer
+    /// </summary>
+    public static void SwitchToAlternateBuffer()
+        => Console.Write("\e[?1049h");
+
+    /// <summary>
+    /// Switch to main buffer
+    /// </summary>
+    public static void SwitchToMainBuffer()
+        => Console.Write("\e[?1049l");
+
+    private static string GetControlSequenceResponse(string controlSequence)
+    {
+        var response = new StringBuilder();
+
+        try
+        {
+            Console.Write(controlSequence);
+            Thread.Sleep(20);
+            while (Console.KeyAvailable)
+            {
+                char? c = Console.ReadKey(true).KeyChar;
+                response.Append(c);
+            }
+            return response.ToString();
+        }
+        catch (IOException)
+        {
+            return string.Empty;
+        }
+    }
+    /// <summary>
     /// Fragment extension management
     /// </summary>
     public static class FragmentExtensions
@@ -84,27 +134,20 @@ public static class WindowsTerminal
             => File.Exists(Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json")));
 
         /// <summary>
-        /// Try to remove a terminal fragment from the LocalApplicationData
+        /// Read a terminal fragment from the LocalApplicationData
         /// </summary>
-        /// <param name="appName">App name that installed the fragment</param>
-        /// <param name="fragmentName">fragment json name</param>
-        /// <returns>true, if fragment was removed. False if remove failed or fragment does not exist</returns>
-        public static bool TryRemoveFragment(string appName, string fragmentName)
+        /// <param name="appName">App name</param>
+        /// <param name="fragmentName">fragment json file name</param>
+        /// <returns>Terminal fragment data</returns>
+        public static async Task<TerminalFragment?> ReadFragmentAsync(string appName, string fragmentName)
         {
-            try
+            var filePath = Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
+            if (!File.Exists(filePath))
             {
-                var filePath = Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                    return true;
-                }
-                return false;
+                return null;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            await using var stream = File.OpenRead(filePath);
+            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, TerminalFragmentGenerationContext.Default.TerminalFragment);
         }
 
         /// <summary>
@@ -135,85 +178,34 @@ public static class WindowsTerminal
         }
 
         /// <summary>
-        /// Read a terminal fragment from the LocalApplicationData
+        /// Try to remove a terminal fragment from the LocalApplicationData
         /// </summary>
-        /// <param name="appName">App name</param>
-        /// <param name="fragmentName">fragment json file name</param>
-        /// <returns>Terminal fragment data</returns>
-        public static async Task<TerminalFragment?> ReadFragmentAsync(string appName, string fragmentName)
+        /// <param name="appName">App name that installed the fragment</param>
+        /// <param name="fragmentName">fragment json name</param>
+        /// <returns>true, if fragment was removed. False if remove failed or fragment does not exist</returns>
+        public static bool TryRemoveFragment(string appName, string fragmentName)
         {
-            var filePath = Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
-            if (!File.Exists(filePath))
+            try
             {
-                return null;
+                var filePath = Path.Combine(LocalFragments, appName, Path.ChangeExtension(fragmentName, ".json"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    return true;
+                }
+                return false;
             }
-            await using var stream = File.OpenRead(filePath);
-            return await JsonSerializer.DeserializeAsync<TerminalFragment>(stream, TerminalFragmentGenerationContext.Default.TerminalFragment);
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
-
-    /// <summary>
-    /// Set the progressbar state
-    /// </summary>
-    /// <param name="progressbarState">Progress bar state</param>
-    /// <param name="value">progress bar value</param>
-    public static void SetProgressbar(ProgressbarState progressbarState, int value)
-    {
-        ArgumentOutOfRangeException.ThrowIfLessThan(value, 0);
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(value, 100);
-        Console.Write($"\e]9;4;{(int)progressbarState};{value}\a");
-    }
-
-    /// <summary>
-    /// Check if the current program is running inside the Windows Terminal
-    /// </summary>
-    /// <returns>True, if App is running inside windows terminal</returns>
-    public static bool IsRunningInsideWindowsTerminal()
-        => Environment.GetEnvironmentVariable("WT_SESSION") != null;
-
-    /// <summary>
-    /// Get the current session id
-    /// </summary>
-    /// <returns>The current windows Session id. Returns null, if program is not running in Windows Terminal</returns>
-    public static string? GetCurrentSessionId()
-        => Environment.GetEnvironmentVariable("WT_SESSION");
-
-    /// <summary>
-    /// Set the window title
-    /// </summary>
-    /// <param name="title">Title to set</param>
-    public static void SetWindowTitle(string title)
-        => Console.Write($"\e]0;{title}\a");
-
-    /// <summary>
-    /// Switch to alternate buffer
-    /// </summary>
-    public static void SwitchToAlternateBuffer()
-        => Console.Write("\e[?1049h");
-
-    /// <summary>
-    /// Switch to main buffer
-    /// </summary>
-    public static void SwitchToMainBuffer()
-        => Console.Write("\e[?1049l");
-
     /// <summary>
     /// Shell integration escape code writing
     /// </summary>
     public static class ShellIntegration
     {
-        /// <summary>
-        /// Signal start of prompt
-        /// </summary>
-        public static void StartOfPrompt()
-            => Console.Write("\e]133;A\a");
-
-        /// <summary>
-        /// Signal end of prompt, the start of the commandline
-        /// </summary>
-        public static void CommandStart()
-            => Console.Write("\e]133;B\a");
-
         /// <summary>
         /// The start of the command output / the end of the commandline
         /// </summary>
@@ -226,5 +218,17 @@ public static class WindowsTerminal
         /// <param name="exitCode">Command exit code</param>
         public static void CommandFinished(int exitCode)
             => Console.Write($"\e]133;D;{exitCode}\a");
+
+        /// <summary>
+        /// Signal end of prompt, the start of the commandline
+        /// </summary>
+        public static void CommandStart()
+            => Console.Write("\e]133;B\a");
+
+        /// <summary>
+        /// Signal start of prompt
+        /// </summary>
+        public static void StartOfPrompt()
+            => Console.Write("\e]133;A\a");
     }
 }
