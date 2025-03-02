@@ -1,6 +1,6 @@
 ﻿using Webmaster442.WindowsTerminal.Internals;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Wigets;
 
 /// <summary>
 /// Pager options

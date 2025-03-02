@@ -1,12 +1,11 @@
 ﻿using System.Collections;
-using System.Reflection.Metadata.Ecma335;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Wigets;
 
 /// <summary>
 /// Allows to display text in a paginated way
 /// </summary>
-public sealed class Pager
+public class Pager : WigetBase
 {
     private readonly List<Page> _pages;
     private readonly PagerOptions _options;
@@ -43,12 +42,20 @@ public sealed class Pager
     }
 
     /// <summary>
+    /// Hides the pager
+    /// </summary>
+    public override void OnHide()
+    {
+        //Empty logic
+    }
+
+    /// <summary>
     /// Shows the pager
     /// </summary>
-    public void Show()
+    public override void OnShow()
     {
         int currentPage = 0;
-        while (true)
+        while (IsShowing)
         {
             Console.Clear();
             foreach (var line in _pages[currentPage])
@@ -64,6 +71,7 @@ public sealed class Pager
             {
                 case ConsoleKey.Escape:
                 case ConsoleKey.Q:
+                    Hide();
                     return;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.LeftArrow:

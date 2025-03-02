@@ -1,43 +1,23 @@
-﻿namespace Webmaster442.WindowsTerminal;
+﻿namespace Webmaster442.WindowsTerminal.Wigets;
 
 /// <summary>
 /// Progress bar display
 /// </summary>
-public class Progressbar : IProgress<int>, IProgress<double>, IProgress<float>
+public class Progressbar : WigetBase, IProgress<int>, IProgress<double>, IProgress<float>
 {
+    private const int Height = 3;
     private double _progress;
     private int _top;
-    private bool _isShown;
-    private const int Height = 3;
-
-    /// <summary>
-    /// An overridable method that is called when the progress bar is shown
-    /// </summary>
-    protected virtual void OnShown() { }
-
-    /// <summary>
-    /// An overridable method that is called when the progress bar is hidden
-    /// </summary>
-    protected virtual void OnHidden() { }
-
-    /// <summary>
-    /// An overridable method that is called when the progress bar is updated
-    /// </summary>
-    protected virtual void OnProgressChanged() { }
-
-    private void Initialize()
-        => _top = (Console.WindowHeight - Height) / 2;
-
     private void Draw(double progress)
     {
-        if (!_isShown) Show();
+        if (!IsShowing) return;
 
         Console.SetCursorPosition(0, _top);
         int barWidth = Console.WindowWidth - 2;
         int fillWidth = (int)(progress * barWidth);
 
         TerminalFormattedStringBuilder output = new();
-        for (int i = 0; i < (Height-1); i++)
+        for (int i = 0; i < Height - 1; i++)
         {
             output
                 .Append(' ')
@@ -55,6 +35,14 @@ public class Progressbar : IProgress<int>, IProgress<double>, IProgress<float>
         OnProgressChanged();
     }
 
+    private void Initialize()
+            => _top = (Console.WindowHeight - Height) / 2;
+
+    /// <summary>
+    /// An overridable method that is called when the progress bar is updated
+    /// </summary>
+    protected virtual void OnProgressChanged() { }
+
     /// <summary>
     /// Create a new progress bar
     /// </summary>
@@ -66,12 +54,20 @@ public class Progressbar : IProgress<int>, IProgress<double>, IProgress<float>
     /// <summary>
     /// Hide the progress bar
     /// </summary>
-    public void Hide()
+    public override void OnHide()
     {
-        _isShown = false;
-        WindowsTerminal.SwitchToMainBuffer();
         WindowsTerminal.SetProgressbar(ProgressbarState.Hidden, 0);
-        OnHidden();
+        Console.Clear();
+    }
+
+    /// <summary>
+    /// Show the progress bar
+    /// </summary>
+    public override void OnShow()
+    {
+        Initialize();
+        Console.Clear();
+        Draw(0);
     }
 
     /// <summary>
@@ -97,17 +93,4 @@ public class Progressbar : IProgress<int>, IProgress<double>, IProgress<float>
     /// <param name="value">The value of the updated progress.</param>
     public void Report(int value)
         => Draw(Math.Clamp(value, 0, 100) / 100.0);
-
-    /// <summary>
-    /// Show the progress bar
-    /// </summary>
-    public void Show()
-    {
-        WindowsTerminal.SwitchToAlternateBuffer();
-        Initialize();
-        Console.Clear();
-        _isShown = true;
-        Draw(0);
-        OnShown();
-    }
 }

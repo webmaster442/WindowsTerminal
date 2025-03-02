@@ -4,6 +4,7 @@
 // --------------------------------------------------------------------------
 
 using Webmaster442.WindowsTerminal;
+using Webmaster442.WindowsTerminal.Wigets;
 
 TerminalFormattedStringBuilder builder = new();
 
@@ -21,8 +22,6 @@ Colors24BitDemo();
 
 WaitForKeyPress();
 
-ProgrssbarDemo();
-
 WaitForKeyPress();
 
 MusicDemo();
@@ -34,6 +33,8 @@ ShellIntegrationDemo();
 SixelDemo();
 
 PagerDemo();
+
+ProgrssbarDemo();
 
 void GetPaletteColors()
 {
@@ -173,7 +174,7 @@ void ProgrssbarDemo()
     WindowsTerminal.SetWindowTitle("Progressbar demo");
 
     Progressbar progressbar = new();
-    progressbar.Show();
+    progressbar.Show(useAlternateBuffer: true);
     int done = 0;
     for (int i = 0; i <= 50; i++)
     {
@@ -242,5 +243,5 @@ void PagerDemo()
 {
     using var reader = File.OpenText(Path.Combine(AppContext.BaseDirectory, "LoremIpsum.txt"));
     var pager = new Pager(reader);
-    pager.Show();
+    pager.Show(useAlternateBuffer: true);
 }
