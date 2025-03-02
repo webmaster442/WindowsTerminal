@@ -17,22 +17,13 @@ Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/ap
 
 ## Fields
 
-### **PurplepeterShecme**
+### **CoffeTheme**
 
-Purplepeter color scheme
- https://windowsterminalthemes.dev/?theme=purplepeter
-
-```csharp
-public static TerminalScheme PurplepeterShecme;
-```
-
-### **GithubShecme**
-
-Github inspired color scheme
- https://windowsterminalthemes.dev/?theme=Github
+Coffe theme color scheme
+ https://windowsterminalthemes.dev/?theme=coffee_theme
 
 ```csharp
-public static TerminalScheme GithubShecme;
+public static TerminalScheme CoffeTheme;
 ```
 
 ### **Dracula**
@@ -44,6 +35,24 @@ Dracula color scheme
 public static TerminalScheme Dracula;
 ```
 
+### **GithubShecme**
+
+Github inspired color scheme
+ https://windowsterminalthemes.dev/?theme=Github
+
+```csharp
+public static TerminalScheme GithubShecme;
+```
+
+### **PurplepeterShecme**
+
+Purplepeter color scheme
+ https://windowsterminalthemes.dev/?theme=purplepeter
+
+```csharp
+public static TerminalScheme PurplepeterShecme;
+```
+
 ### **Retrowave**
 
 Retrowave color scheme
@@ -51,15 +60,6 @@ Retrowave color scheme
 
 ```csharp
 public static TerminalScheme Retrowave;
-```
-
-### **CoffeTheme**
-
-Coffe theme color scheme
- https://windowsterminalthemes.dev/?theme=coffee_theme
-
-```csharp
-public static TerminalScheme CoffeTheme;
 ```
 
 ### **Campbell**
@@ -94,14 +94,6 @@ One Half Light scheme
 public static string OneHalfLight;
 ```
 
-### **Vintage**
-
-Vintage scheme
-
-```csharp
-public static string Vintage;
-```
-
 ### **TangoDark**
 
 Tango Dark scheme
@@ -116,6 +108,14 @@ Tango Light scheme
 
 ```csharp
 public static string TangoLight;
+```
+
+### **Vintage**
+
+Vintage scheme
+
+```csharp
+public static string Vintage;
 ```
 
 ---

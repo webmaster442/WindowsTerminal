@@ -15,7 +15,34 @@ public static class WindowsTerminal
 Inheritance [Object](https://docs.microsoft.com/en-us/dotnet/api/system.object) → [WindowsTerminal](./webmaster442.windowsterminal.windowsterminal.md)<br>
 Attributes [NullableContextAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullablecontextattribute), [NullableAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.nullableattribute)
 
+## Properties
+
+### **IsOutputUtf8**
+
+Checks if the current output is UTF8 or not
+
+```csharp
+public static bool IsOutputUtf8 { get; }
+```
+
+#### Property Value
+
+[Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)<br>
+
 ## Methods
+
+### **GetCurrentSessionId()**
+
+Get the current session id
+
+```csharp
+public static string GetCurrentSessionId()
+```
+
+#### Returns
+
+[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
+The current windows Session id. Returns null, if program is not running in Windows Terminal
 
 ### **GetPaletteColor(Int32)**
 
@@ -35,6 +62,19 @@ Color index to get. Must be between 0 and 15
 [ValueTuple&lt;Byte, Byte, Byte&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.valuetuple-3)<br>
 24 bit RGB color
 
+### **IsRunningInsideWindowsTerminal()**
+
+Check if the current program is running inside the Windows Terminal
+
+```csharp
+public static bool IsRunningInsideWindowsTerminal()
+```
+
+#### Returns
+
+[Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)<br>
+True, if App is running inside windows terminal
+
 ### **SetProgressbar(ProgressbarState, Int32)**
 
 Set the progressbar state
@@ -50,32 +90,6 @@ Progress bar state
 
 `value` [Int32](https://docs.microsoft.com/en-us/dotnet/api/system.int32)<br>
 progress bar value
-
-### **IsRunningInsideWindowsTerminal()**
-
-Check if the current program is running inside the Windows Terminal
-
-```csharp
-public static bool IsRunningInsideWindowsTerminal()
-```
-
-#### Returns
-
-[Boolean](https://docs.microsoft.com/en-us/dotnet/api/system.boolean)<br>
-True, if App is running inside windows terminal
-
-### **GetCurrentSessionId()**
-
-Get the current session id
-
-```csharp
-public static string GetCurrentSessionId()
-```
-
-#### Returns
-
-[String](https://docs.microsoft.com/en-us/dotnet/api/system.string)<br>
-The current windows Session id. Returns null, if program is not running in Windows Terminal
 
 ### **SetWindowTitle(String)**
 

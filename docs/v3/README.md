@@ -40,6 +40,16 @@
 
 [WindowsTerminal](./webmaster442.windowsterminal.windowsterminal.md)
 
+## Webmaster442.WindowsTerminal.Wigets
+
+[Pager](./webmaster442.windowsterminal.wigets.pager.md)
+
+[PagerOptions](./webmaster442.windowsterminal.wigets.pageroptions.md)
+
+[Progressbar](./webmaster442.windowsterminal.wigets.progressbar.md)
+
+[WigetBase](./webmaster442.windowsterminal.wigets.wigetbase.md)
+
 # Webmaster442.WindowsTerminal.Sixel
 
 ## Webmaster442.WindowsTerminal
