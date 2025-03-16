@@ -4,6 +4,7 @@
 // --------------------------------------------------------------------------
 
 using Webmaster442.WindowsTerminal;
+using Webmaster442.WindowsTerminal.Wigets;
 
 TerminalFormattedStringBuilder builder = new();
 
@@ -13,13 +14,13 @@ WaitForKeyPress();
 
 Colors256Demo();
 
+GetPaletteColors();
+
 WaitForKeyPress();
 
 Colors24BitDemo();
 
 WaitForKeyPress();
-
-ProgrssbarDemo();
 
 WaitForKeyPress();
 
@@ -31,13 +32,66 @@ ShellIntegrationDemo();
 
 SixelDemo();
 
+PagerDemo();
+
+ProgrssbarDemo();
+
+void GetPaletteColors()
+{
+    Console.Clear();
+    Console.WriteLine("Palette colors");
+    for (int i = 0; i < 15; i++)
+    {
+        var (r, g, b) = WindowsTerminal.GetPaletteColor(i);
+        Console.WriteLine(builder.New()
+            .WithForegroundColor(r, g, b)
+            .Append("█")
+            .ResetFormat()
+            .AppendLine($" Color {i}: R:{r} G:{g} B:{b}"));
+    }
+}
+
 void SixelDemo()
 {
+    Console.Clear();
     Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
 
+    Console.WriteLine("512x512, SizeMode = None");
     var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
     var img = Sixel.ImageToSixel(imagePath);
     Console.Write(img);
+
+    Console.WriteLine("384x128, SizeMode = Fit");
+    var fit = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Fit
+    });
+    Console.Write(fit);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitWidth = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitWidth
+    });
+    Console.Write(fitWidth);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitHeight = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitHeight
+    });
+    Console.Write(fitHeight);
+
+    Console.WriteLine("384x128, SizeMode = Manual");
+    var manual = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Manual
+    });
+    Console.Write(manual);
 }
 
 void MusicDemo()
@@ -119,31 +173,16 @@ void ProgrssbarDemo()
 {
     WindowsTerminal.SetWindowTitle("Progressbar demo");
 
-    Console.WriteLine("Normal progress");
+    Progressbar progressbar = new();
+    progressbar.Show(useAlternateBuffer: true);
     int done = 0;
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i <= 50; i++)
     {
-        WindowsTerminal.SetProgressbar(ProgressbarState.Default, i);
+        progressbar.Report(done);
         Thread.Sleep(50);
         done += 2;
     }
-
-    Console.WriteLine("Error 50% progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Error, 50);
-    Thread.Sleep(3000);
-
-    Console.WriteLine("Indeterminate progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Indeterminate, 0);
-    Thread.Sleep(3000);
-
-    Console.WriteLine("Warning 75% progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Warning, 75);
-    Thread.Sleep(3000);
-
-    Console.WriteLine("Hidden progress");
-    WindowsTerminal.SetProgressbar(ProgressbarState.Hidden, 0);
-
-    WindowsTerminal.SetWindowTitle("");
+    progressbar.Hide();
 }
 
 async Task FragmentInstallDemo()
@@ -198,4 +237,11 @@ void ShellIntegrationDemo()
     WindowsTerminal.ShellIntegration.CommandExecuted();
     Console.WriteLine($"Command: {command}");
     WindowsTerminal.ShellIntegration.CommandFinished(0);
+}
+
+void PagerDemo()
+{
+    using var reader = File.OpenText(Path.Combine(AppContext.BaseDirectory, "LoremIpsum.txt"));
+    var pager = new Pager(reader);
+    pager.Show(useAlternateBuffer: true);
 }

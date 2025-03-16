@@ -1,3 +1,14 @@
+# 3.0.0
+ - Colors can now be specified in hsl() and rgb() CSS format in the `TerminalFormattedStringBuilder.WithForegroundColor(string color)` and `TerminalFormattedStringBuilder.WithBackgroundColor(string color)` methods.
+ - `WindowsTerminal` class now has a `GetPaletteColor(int index)` method, that returns the color of the specified palette index.
+ - Added support for actions in Fragment extensions. The TerminalCommand class has some predefined actions.
+- Added more themes into the `TerminalSchemes` class
+- `Sixel.ImageToSixel`: Image is now properly resized, instead of cropped, if the image is larger than the specified size.
+- Added Pager widget, that can diplay a large amount of text in a paginated way.
+- Added ProgressBar widget, that can display a progress bar.
+- Added `Sixel.GetTerminalWindowSize()` method, that returns the current terminal window size in pixels.
+- - `Sixel.ImageToSixel`: Removed versions where the `maxSize` can be specied as a tuple. Use the new `Sixel.ImageToSixel` variants, that accept a `SixelOptions` instead.
+
 # 2.0.0
 
 - Added .NET 8 support

@@ -16,6 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTerminal.Sixel", "Src\WindowsTerminal.Sixel\Webmaster442.WindowsTerminal.Sixel.csproj", "{C865B0C1-B2D8-4F7E-BD57-DA69ED047A96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTerminal.Tests", "Src\Tests\Webmaster442.WindowsTerminal.Tests.csproj", "{EBBEF9CF-4676-46FD-90C4-54EAA816AC90}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BEB135EC-767B-4D1B-80EB-A63478A3EAEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{2F3D2614-B280-4A05-9CF9-244221876F75}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet9.yml = .github\workflows\dotnet9.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,8 +43,16 @@ Global
 		{C865B0C1-B2D8-4F7E-BD57-DA69ED047A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C865B0C1-B2D8-4F7E-BD57-DA69ED047A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C865B0C1-B2D8-4F7E-BD57-DA69ED047A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBBEF9CF-4676-46FD-90C4-54EAA816AC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBEF9CF-4676-46FD-90C4-54EAA816AC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBEF9CF-4676-46FD-90C4-54EAA816AC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBEF9CF-4676-46FD-90C4-54EAA816AC90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{963F43DE-9B61-40C0-B811-570263347CC8} = {BEB135EC-767B-4D1B-80EB-A63478A3EAEF}
+		{EBBEF9CF-4676-46FD-90C4-54EAA816AC90} = {BEB135EC-767B-4D1B-80EB-A63478A3EAEF}
 	EndGlobalSection
 EndGlobal

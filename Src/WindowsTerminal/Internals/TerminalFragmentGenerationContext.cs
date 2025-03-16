@@ -12,6 +12,7 @@ namespace Webmaster442.WindowsTerminal.Internals;
     ReadCommentHandling = JsonCommentHandling.Skip,
     WriteIndented = true,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+    Converters = [typeof(TerminalCommandConverter)],
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(TerminalFragment))]
 [JsonSerializable(typeof(TerminalBackgroundImageAlignment))]
@@ -20,6 +21,7 @@ namespace Webmaster442.WindowsTerminal.Internals;
 [JsonSerializable(typeof(TerminalScheme))]
 [JsonSerializable(typeof(TerminalFont))]
 [JsonSerializable(typeof(TerminalFontWeight))]
+[JsonSerializable(typeof(TerminalAction))]
 internal partial class TerminalFragmentGenerationContext : JsonSerializerContext
 {
 }
