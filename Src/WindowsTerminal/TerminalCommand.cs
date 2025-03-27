@@ -131,7 +131,7 @@ public sealed class TerminalCommand
         return new(new Dictionary<string, string>
         {
             { "action", "setColorScheme" },
-            { "scheme", scheme }
+            { "colorScheme", scheme }
         });
     }
 

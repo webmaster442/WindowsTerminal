@@ -108,7 +108,7 @@ public class UT_JsonFragment
                 {
                   "command": {
                     "action": "setColorScheme",
-                    "scheme": "Dracula"
+                    "colorScheme": "Dracula"
                   },
                   "name": "Phone up Bram Stoker",
                   "id": "Dracula.Draculize"
@@ -150,14 +150,14 @@ public class UT_JsonFragment
                 {
                   "command": {
                     "action": "setColorScheme",
-                    "scheme": "purplepeter"
+                    "colorScheme": "purplepeter"
                   },
                   "id": "User.SetSchemeToPurplepeter"
                 },
                 {
                   "command": {
                     "action": "setColorScheme",
-                    "scheme": "Dracula"
+                    "colorScheme": "Dracula"
                   },
                   "id": "User.SetSchemeToDracula"
                 }
