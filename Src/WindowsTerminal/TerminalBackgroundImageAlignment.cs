@@ -17,45 +17,45 @@ public enum TerminalBackgroundImageAlignment
     /// The image is centered in the window.
     /// </summary>
     [JsonStringEnumMemberName("center")]
-    Center,
+    Center = 0,
     /// <summary>
     /// The image is aligned to the left of the window.
     /// </summary>
     [JsonStringEnumMemberName("left")]
-    Left,
+    Left = 1,
     /// <summary>
     /// The image is aligned to the top of the window.
     /// </summary>
     [JsonStringEnumMemberName("top")]
-    Top,
+    Top = 2,
     /// <summary>
     /// The image is aligned to the right of the window.
     /// </summary>
     [JsonStringEnumMemberName("right")]
-    Right,
+    Right = 3,
     /// <summary>
     /// The image is aligned to the bottom of the window.
     /// </summary>
     [JsonStringEnumMemberName("bottom")]
-    Bottom,
+    Bottom = 4,
     /// <summary>
     /// The image is aligned to the top left corner of the window.
     /// </summary>
     [JsonStringEnumMemberName("topLeft")]
-    TopLeft,
+    TopLeft = 5,
     /// <summary>
     /// The image is aligned to the top right corner of the window.
     /// </summary>
     [JsonStringEnumMemberName("topRight")]
-    TopRight,
+    TopRight = 6,
     /// <summary>
     /// The image is aligned to the bottom left corner of the window.
     /// </summary>
     [JsonStringEnumMemberName("bottomLeft")]
-    BottomLeft,
+    BottomLeft = 7,
     /// <summary>
     /// The image is aligned to the bottom right corner of the window.
     /// </summary>
     [JsonStringEnumMemberName("bottomRight")]
-    BottomRight,
+    BottomRight = 8,
 }
