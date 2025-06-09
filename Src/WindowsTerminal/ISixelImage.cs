@@ -1,4 +1,9 @@
-﻿namespace Webmaster442.WindowsTerminal;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+namespace Webmaster442.WindowsTerminal;
 
 /// <summary>
 /// Represents an RGB image that can be encoded into Sixel format.
