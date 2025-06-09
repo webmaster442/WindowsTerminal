@@ -6,6 +6,7 @@
 using System.Text;
 using System.Text.Json;
 
+using Webmaster442.WindowsTerminal.Fragments;
 using Webmaster442.WindowsTerminal.Internals;
 
 namespace Webmaster442.WindowsTerminal;
@@ -13,7 +14,7 @@ namespace Webmaster442.WindowsTerminal;
 /// <summary>
 /// Windows terminal interaction class
 /// </summary>
-public static class WindowsTerminal
+public static class Terminal
 {
     private static readonly string LocalFragments = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Microsoft", "Windows Terminal", "Fragments");
 
@@ -91,7 +92,7 @@ public static class WindowsTerminal
     public static void SwitchToMainBuffer()
         => Console.Write("\e[?1049l");
 
-    private static string GetControlSequenceResponse(string controlSequence)
+    internal static string GetControlSequenceResponse(string controlSequence)
     {
         var response = new StringBuilder();
 
@@ -111,6 +112,44 @@ public static class WindowsTerminal
             return string.Empty;
         }
     }
+
+    /// <summary>
+    /// Get the terminal window size in pixels
+    /// </summary>
+    /// <returns>A value tuple with the terminal window size</returns>
+    public static (int width, int hegiht) GetTerminalWindowSize()
+    {
+        static (int width, int hegiht) DefaultSize()
+            => (width: 10 * Console.WindowWidth, hegiht: 20 * Console.WindowHeight);
+
+        var response = GetControlSequenceResponse("\e[16t");
+
+        try
+        {
+            var parts = response.Split(';', 't');
+            return parts.Length > 2
+                ? (width: int.Parse(parts[2]) * Console.WindowWidth, hegiht: int.Parse(parts[1]) * Console.WindowHeight)
+                : DefaultSize();
+        }
+        catch (FormatException)
+        {
+            return DefaultSize();
+        }
+    }
+
+    /// <summary>
+    /// Check if sixel is supported
+    /// </summary>
+    public static bool IsSixelSupported
+    {
+        get
+        {
+            string response = GetControlSequenceResponse("\e[c");
+            var parts = response.Split(';');
+            return parts.Length > 2 && parts[1] == "4";
+        }
+    }
+
     /// <summary>
     /// Fragment extension management
     /// </summary>

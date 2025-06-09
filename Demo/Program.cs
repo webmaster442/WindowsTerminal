@@ -4,6 +4,9 @@
 // --------------------------------------------------------------------------
 
 using Webmaster442.WindowsTerminal;
+using Webmaster442.WindowsTerminal.Fragments;
+using Webmaster442.WindowsTerminal.ImageSharp;
+using Webmaster442.WindowsTerminal.SkiaSharp;
 using Webmaster442.WindowsTerminal.Wigets;
 
 TerminalFormattedStringBuilder builder = new();
@@ -30,11 +33,21 @@ await FragmentInstallDemo();
 
 ShellIntegrationDemo();
 
-SixelDemo();
+SixelDemoImageSharp();
+
+WaitForKeyPress();
+
+SixelDemoSkiaSharp();
+
+WaitForKeyPress();
 
 PagerDemo();
 
+WaitForKeyPress();
+
 ProgrssbarDemo();
+
+WaitForKeyPress();
 
 void GetPaletteColors()
 {
@@ -42,7 +55,7 @@ void GetPaletteColors()
     Console.WriteLine("Palette colors");
     for (int i = 0; i < 15; i++)
     {
-        var (r, g, b) = WindowsTerminal.GetPaletteColor(i);
+        var (r, g, b) = Terminal.GetPaletteColor(i);
         Console.WriteLine(builder.New()
             .WithForegroundColor(r, g, b)
             .Append("█")
@@ -51,18 +64,18 @@ void GetPaletteColors()
     }
 }
 
-void SixelDemo()
+void SixelDemoImageSharp()
 {
     Console.Clear();
-    Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
+    Console.WriteLine($"Sixel is supported: {Terminal.IsSixelSupported}");
 
     Console.WriteLine("512x512, SizeMode = None");
     var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
-    var img = Sixel.ImageToSixel(imagePath);
+    var img = ImageSharpSixelImage.FromFile(imagePath);
     Console.Write(img);
 
     Console.WriteLine("384x128, SizeMode = Fit");
-    var fit = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    var fit = ImageSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
     {
         MaxSize = (Width: 384, Height: 128),
         SizeMode = SizeMode.Fit
@@ -70,7 +83,7 @@ void SixelDemo()
     Console.Write(fit);
 
     Console.WriteLine("384x128, SizeMode = FitWidth");
-    var fitWidth = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    var fitWidth = ImageSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
     {
         MaxSize = (Width: 384, Height: 128),
         SizeMode = SizeMode.FitWidth
@@ -78,7 +91,7 @@ void SixelDemo()
     Console.Write(fitWidth);
 
     Console.WriteLine("384x128, SizeMode = FitWidth");
-    var fitHeight = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    var fitHeight = ImageSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
     {
         MaxSize = (Width: 384, Height: 128),
         SizeMode = SizeMode.FitHeight
@@ -86,7 +99,50 @@ void SixelDemo()
     Console.Write(fitHeight);
 
     Console.WriteLine("384x128, SizeMode = Manual");
-    var manual = Sixel.ImageToSixel(imagePath, SixelOptions.Default with
+    var manual = ImageSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Manual
+    });
+    Console.Write(manual);
+}
+
+void SixelDemoSkiaSharp()
+{
+    Console.Clear();
+    Console.WriteLine($"Sixel is supported: {Terminal.IsSixelSupported}");
+
+    Console.WriteLine("512x512, SizeMode = None");
+    var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
+    var img = SkiaSharpSixelImage.FromFile(imagePath);
+    Console.Write(img);
+
+    Console.WriteLine("384x128, SizeMode = Fit");
+    var fit = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Fit
+    });
+    Console.Write(fit);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitWidth = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitWidth
+    });
+    Console.Write(fitWidth);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitHeight = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitHeight
+    });
+    Console.Write(fitHeight);
+
+    Console.WriteLine("384x128, SizeMode = Manual");
+    var manual = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
     {
         MaxSize = (Width: 384, Height: 128),
         SizeMode = SizeMode.Manual
@@ -171,7 +227,7 @@ void Colors24BitDemo()
 
 void ProgrssbarDemo()
 {
-    WindowsTerminal.SetWindowTitle("Progressbar demo");
+    Terminal.SetWindowTitle("Progressbar demo");
 
     Progressbar progressbar = new();
     progressbar.Show(useAlternateBuffer: true);
@@ -205,12 +261,12 @@ async Task FragmentInstallDemo()
 
     const string appName = "Webmaster442.WindowsTerminalDemo";
     const string fragmentName = "demoApp.json";
-    if (!WindowsTerminal.FragmentExtensions.IsFragmentInstalled(appName, fragmentName))
+    if (!Terminal.FragmentExtensions.IsFragmentInstalled(appName, fragmentName))
     {
         Console.WriteLine("Fragment not installed. Install? (Y/N)");
         if (Console.ReadKey().Key == ConsoleKey.Y)
         {
-            bool result = await WindowsTerminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, fragment);
+            bool result = await Terminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, fragment);
             if (result)
             {
                 Console.WriteLine("Fragment installed");
@@ -229,14 +285,14 @@ async Task FragmentInstallDemo()
 
 void ShellIntegrationDemo()
 {
-    WindowsTerminal.SetWindowTitle("Shell integration demo");
-    WindowsTerminal.ShellIntegration.StartOfPrompt();
+    Terminal.SetWindowTitle("Shell integration demo");
+    Terminal.ShellIntegration.StartOfPrompt();
     Console.Write("Enter a command >");
-    WindowsTerminal.ShellIntegration.CommandStart();
+    Terminal.ShellIntegration.CommandStart();
     string? command = Console.ReadLine();
-    WindowsTerminal.ShellIntegration.CommandExecuted();
+    Terminal.ShellIntegration.CommandExecuted();
     Console.WriteLine($"Command: {command}");
-    WindowsTerminal.ShellIntegration.CommandFinished(0);
+    Terminal.ShellIntegration.CommandFinished(0);
 }
 
 void PagerDemo()

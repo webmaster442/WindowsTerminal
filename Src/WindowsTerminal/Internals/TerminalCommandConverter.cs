@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using Webmaster442.WindowsTerminal.Fragments;
+
 namespace Webmaster442.WindowsTerminal.Internals;
 
 internal class TerminalCommandConverter : JsonConverter<TerminalCommand>

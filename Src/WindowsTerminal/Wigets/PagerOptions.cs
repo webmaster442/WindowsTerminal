@@ -1,4 +1,9 @@
-﻿using Webmaster442.WindowsTerminal.Internals;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+using Webmaster442.WindowsTerminal.Internals;
 
 namespace Webmaster442.WindowsTerminal.Wigets;
 

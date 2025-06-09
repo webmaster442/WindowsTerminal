@@ -1,4 +1,9 @@
-﻿namespace Webmaster442.WindowsTerminal.Wigets;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+namespace Webmaster442.WindowsTerminal.Wigets;
 
 /// <summary>
 /// Base class for wigets
@@ -24,7 +29,7 @@ public abstract class WigetBase
         IsShowing = true;
         IsAlternateBuffer = useAlternateBuffer;
         if (IsAlternateBuffer)
-            WindowsTerminal.SwitchToAlternateBuffer();
+            Terminal.SwitchToAlternateBuffer();
         OnShow();
     }
 
@@ -35,7 +40,7 @@ public abstract class WigetBase
     {
         OnHide();
         if (IsAlternateBuffer)
-            WindowsTerminal.SwitchToMainBuffer();
+            Terminal.SwitchToMainBuffer();
         IsShowing = false;
     }
 

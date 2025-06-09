@@ -3,7 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 // --------------------------------------------------------------------------
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Fragments;
 
 /// <summary>
 /// Built in color schemes for Windows Terminal

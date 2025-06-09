@@ -1,4 +1,9 @@
-﻿namespace Webmaster442.WindowsTerminal.Wigets;
+﻿// --------------------------------------------------------------------------
+// Copyright (c) 2024-2025 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+// --------------------------------------------------------------------------
+
+namespace Webmaster442.WindowsTerminal.Wigets;
 
 /// <summary>
 /// Progress bar display
@@ -31,7 +36,7 @@ public class Progressbar : WigetBase, IProgress<int>, IProgress<double>, IProgre
         output.AppendLine($"{progress:p}".PadLeft(Console.WindowWidth / 2));
 
         Console.Write(output.ToString());
-        WindowsTerminal.SetProgressbar(ProgressbarState.Default, (int)Math.Ceiling(progress * 100));
+        Terminal.SetProgressbar(ProgressbarState.Default, (int)Math.Ceiling(progress * 100));
         OnProgressChanged();
     }
 
@@ -56,7 +61,7 @@ public class Progressbar : WigetBase, IProgress<int>, IProgress<double>, IProgre
     /// </summary>
     public override void OnHide()
     {
-        WindowsTerminal.SetProgressbar(ProgressbarState.Hidden, 0);
+        Terminal.SetProgressbar(ProgressbarState.Hidden, 0);
         Console.Clear();
     }
 

@@ -5,12 +5,47 @@
 
 using System.Diagnostics;
 
-using SixLabors.ImageSharp;
-
 namespace Webmaster442.WindowsTerminal;
 
-internal static class SizeCalculator
+/// <summary>
+/// Represents an image Size
+/// </summary>
+public readonly record struct Size
 {
+    /// <summary>
+    /// Image Width
+    /// </summary>
+    public int Width { get; }
+
+    /// <summary>
+    /// Image Height
+    /// </summary>
+    public int Height { get; }
+
+    /// <summary>
+    /// Creates a new Size instance with the specified width and height.
+    /// </summary>
+    /// <param name="width">width</param>
+    /// <param name="height">height</param>
+    public Size(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"{Width}x{Height}";
+    }
+
+    /// <summary>
+    /// Calculates the size of an image based on the maximum size, image size, and size mode.
+    /// </summary>
+    /// <param name="maxSize">Maximum avaliable size</param>
+    /// <param name="imageSize">Image size</param>
+    /// <param name="sizeMode">Size mode</param>
+    /// <returns>A final, calculated size</returns>
     public static Size GetSize(Size maxSize, Size imageSize, SizeMode sizeMode)
     {
         return sizeMode switch

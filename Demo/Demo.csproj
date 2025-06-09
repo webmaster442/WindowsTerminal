@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\WindowsTerminal.Sixel\Webmaster442.WindowsTerminal.Sixel.csproj" />
+    <ProjectReference Include="..\Src\WindowsTerminal.ImageSharp\Webmaster442.WindowsTerminal.ImageSharp.csproj" />
+    <ProjectReference Include="..\Src\WindowsTerminal.SkiaSharp\Webmaster442.WindowsTerminal.SkiaSharp.csproj" />
     <ProjectReference Include="..\Src\WindowsTerminal\Webmaster442.WindowsTerminal.csproj" />
   </ItemGroup>
 
