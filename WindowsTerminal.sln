@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTerminal.ImageSharp", "Src\WindowsTerminal.ImageSharp\Webmaster442.WindowsTerminal.ImageSharp.csproj", "{C1B565F8-03F1-1DB2-BE0F-4C46386B21A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webmaster442.WindowsTerminal.SkiaSharp", "Src\WindowsTerminal.SkiaSharp\Webmaster442.WindowsTerminal.SkiaSharp.csproj", "{3E2189B4-0DA0-5C9A-433B-861AACC8AFF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{C1B565F8-03F1-1DB2-BE0F-4C46386B21A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1B565F8-03F1-1DB2-BE0F-4C46386B21A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1B565F8-03F1-1DB2-BE0F-4C46386B21A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E2189B4-0DA0-5C9A-433B-861AACC8AFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E2189B4-0DA0-5C9A-433B-861AACC8AFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E2189B4-0DA0-5C9A-433B-861AACC8AFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E2189B4-0DA0-5C9A-433B-861AACC8AFF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

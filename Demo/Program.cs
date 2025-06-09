@@ -6,37 +6,48 @@
 using Webmaster442.WindowsTerminal;
 using Webmaster442.WindowsTerminal.Fragments;
 using Webmaster442.WindowsTerminal.ImageSharp;
+using Webmaster442.WindowsTerminal.SkiaSharp;
 using Webmaster442.WindowsTerminal.Wigets;
 
 TerminalFormattedStringBuilder builder = new();
 
-//BasicFormatting();
+BasicFormatting();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//Colors256Demo();
+Colors256Demo();
 
-//GetPaletteColors();
+GetPaletteColors();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//Colors24BitDemo();
+Colors24BitDemo();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//WaitForKeyPress();
+WaitForKeyPress();
 
-//MusicDemo();
+MusicDemo();
 
-//await FragmentInstallDemo();
+await FragmentInstallDemo();
 
-//ShellIntegrationDemo();
+ShellIntegrationDemo();
 
-SixelDemo();
+SixelDemoImageSharp();
 
-//PagerDemo();
+WaitForKeyPress();
 
-//ProgrssbarDemo();
+SixelDemoSkiaSharp();
+
+WaitForKeyPress();
+
+PagerDemo();
+
+WaitForKeyPress();
+
+ProgrssbarDemo();
+
+WaitForKeyPress();
 
 void GetPaletteColors()
 {
@@ -53,7 +64,7 @@ void GetPaletteColors()
     }
 }
 
-void SixelDemo()
+void SixelDemoImageSharp()
 {
     Console.Clear();
     Console.WriteLine($"Sixel is supported: {Terminal.IsSixelSupported}");
@@ -89,6 +100,49 @@ void SixelDemo()
 
     Console.WriteLine("384x128, SizeMode = Manual");
     var manual = ImageSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Manual
+    });
+    Console.Write(manual);
+}
+
+void SixelDemoSkiaSharp()
+{
+    Console.Clear();
+    Console.WriteLine($"Sixel is supported: {Terminal.IsSixelSupported}");
+
+    Console.WriteLine("512x512, SizeMode = None");
+    var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
+    var img = SkiaSharpSixelImage.FromFile(imagePath);
+    Console.Write(img);
+
+    Console.WriteLine("384x128, SizeMode = Fit");
+    var fit = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.Fit
+    });
+    Console.Write(fit);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitWidth = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitWidth
+    });
+    Console.Write(fitWidth);
+
+    Console.WriteLine("384x128, SizeMode = FitWidth");
+    var fitHeight = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
+    {
+        MaxSize = (Width: 384, Height: 128),
+        SizeMode = SizeMode.FitHeight
+    });
+    Console.Write(fitHeight);
+
+    Console.WriteLine("384x128, SizeMode = Manual");
+    var manual = SkiaSharpSixelImage.FromFile(imagePath, SixelOptions.Default with
     {
         MaxSize = (Width: 384, Height: 128),
         SizeMode = SizeMode.Manual
