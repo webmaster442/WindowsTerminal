@@ -22,9 +22,9 @@ dotnet add package Webmaster442.WindowsTerminal
 ```csharp
 const string appName = "Webmaster442.WindowsTerminalDemo";
 const string fragmentName = "demoApp.json";
-if (!WindowsTerminal.FragmentExtensions.IsFragmentInstalled(appName, fragmentName))
+if (!Terminal.FragmentExtensions.IsFragmentInstalled(appName, fragmentName))
 {
-    bool result = await WindowsTerminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, new TerminalFragment()
+    bool result = await Terminal.FragmentExtensions.TryInstallFragmentAsync(appName, fragmentName, new TerminalFragment()
     {
         Profiles = 
         {
@@ -46,21 +46,21 @@ else
 **Send shell integration marks**
 
 ```csharp
-WindowsTerminal.SetWindowTitle("Shell integration demo");
-WindowsTerminal.ShellIntegration.StartOfPrompt();
+Terminal.SetWindowTitle("Shell integration demo");
+Terminal.ShellIntegration.StartOfPrompt();
 Console.Write("Enter a command >");
-WindowsTerminal.ShellIntegration.CommandStart();
+Terminal.ShellIntegration.CommandStart();
 string? command = Console.ReadLine();
-WindowsTerminal.ShellIntegration.CommandExecuted();
+Terminal.ShellIntegration.CommandExecuted();
 Console.WriteLine($"Command: {command}");
-WindowsTerminal.ShellIntegration.CommandFinished(0);
+Terminal.ShellIntegration.CommandFinished(0);
 ```
 
 **Set window title and Display progress bar:**
 
 ```csharp
-WindowsTerminal.SetWindowTitle("Progressbar demo");
-WindowsTerminal.SetProgressbar(ProgressbarState.Default, 50);
+Terminal.SetWindowTitle("Progressbar demo");
+Terminal.SetProgressbar(ProgressbarState.Default, 50);
 ```
 
 **Write Formatted string to the terminal:**
@@ -92,12 +92,17 @@ Console.Write(music.ToString());
 
 **Create a Sixel image:**
 
-Note : This feature requires the Webmaster442.WindowsTerminal.Sixel package
+Note : This feature requires the `Webmaster442.WindowsTerminal.ImageSharp` or `Webmaster442.WindowsTerminal.SkiaSharp` package.
 
 ```csharp
-Console.WriteLine($"Sixel is supported: {Sixel.IsSupported}");
+
+Console.WriteLine($"Sixel is supported: {Terminal.IsSixelSupported}");
 
 var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
-var img = Sixel.ImageToSixel(imagePath);
+var img = ImageSharpSixelImage.FromFile(imagePath);
+Console.Write(img);
+
+var imagePath = Path.Combine(AppContext.BaseDirectory, "512x512.png");
+var img = SkiaSharpSixelImage.FromFile(imagePath);
 Console.Write(img);
 ```
