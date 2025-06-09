@@ -25,11 +25,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WindowsTerminal\Webmaster442.WindowsTerminal.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.*" />
+    <PackageReference Include="Webmaster442.WindowsTerminal" Version="4.0.*" />
   </ItemGroup>
 
   <ItemGroup>

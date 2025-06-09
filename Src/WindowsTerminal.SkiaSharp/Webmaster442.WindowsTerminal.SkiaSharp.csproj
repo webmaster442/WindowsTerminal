@@ -25,10 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WindowsTerminal\Webmaster442.WindowsTerminal.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\Img\128x128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -45,6 +41,7 @@
 
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="3.119.*" />
+    <PackageReference Include="Webmaster442.WindowsTerminal" Version="4.0.*" />
   </ItemGroup>
 
 </Project>
