@@ -1,4 +1,6 @@
-﻿namespace Webmaster442.WindowsTerminal.Tests;
+﻿using Webmaster442.WindowsTerminal.Fragments;
+
+namespace Webmaster442.WindowsTerminal.Tests;
 
 [TestFixture]
 public class UT_JsonFragment

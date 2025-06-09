@@ -5,7 +5,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Fragments;
 
 /// <summary>
 /// Weight (lightness or heaviness of the strokes) of  a Font

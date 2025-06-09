@@ -6,6 +6,7 @@
 using System.Text;
 using System.Text.Json;
 
+using Webmaster442.WindowsTerminal.Fragments;
 using Webmaster442.WindowsTerminal.Internals;
 
 namespace Webmaster442.WindowsTerminal;

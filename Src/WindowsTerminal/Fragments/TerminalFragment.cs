@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 
 using Webmaster442.WindowsTerminal.Internals;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Fragments;
 
 /// <summary>
 /// Represents a terminal fragment

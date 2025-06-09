@@ -4,6 +4,7 @@
 // --------------------------------------------------------------------------
 
 using Webmaster442.WindowsTerminal;
+using Webmaster442.WindowsTerminal.Fragments;
 using Webmaster442.WindowsTerminal.Wigets;
 
 TerminalFormattedStringBuilder builder = new();

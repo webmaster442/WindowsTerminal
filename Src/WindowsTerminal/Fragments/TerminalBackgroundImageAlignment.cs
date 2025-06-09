@@ -5,7 +5,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Fragments;
 
 /// <summary>
 /// This sets how the background image aligns to the boundaries of the window.

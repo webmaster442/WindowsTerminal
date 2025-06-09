@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 using Webmaster442.WindowsTerminal.Internals;
 
-namespace Webmaster442.WindowsTerminal;
+namespace Webmaster442.WindowsTerminal.Fragments;
 
 /// <summary>
 /// A profile is a set of settings that can be applied to a terminal window.

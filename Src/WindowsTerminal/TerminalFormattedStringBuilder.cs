@@ -185,8 +185,8 @@ public sealed class TerminalFormattedStringBuilder
     /// <exception cref="FormatException">The color was not one of the supported formats.</exception>
     public TerminalFormattedStringBuilder WithBackgroundColor(string color)
     {
-        var (r, g, b) = color.ToRgb();
-        return WithBackgroundColor(r, g, b);
+        var parsed = Color.Parse(color, null);
+        return WithBackgroundColor(parsed);
     }
 
     /// <summary>
@@ -199,6 +199,17 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder WithBackgroundColor(byte r, byte g, byte b)
     {
         _builder.Append($"\e[48;2;{r};{g};{b}m");
+        return this;
+    }
+
+    /// <summary>
+    /// Set background color to a 24 bit RGB color
+    /// </summary>
+    /// <param name="c">An RGB color to use</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithBackgroundColor(Color c)
+    {
+        _builder.Append($"\e[48;2;{c.R};{c.G};{c.B}m");
         return this;
     }
 
@@ -253,8 +264,8 @@ public sealed class TerminalFormattedStringBuilder
     /// <exception cref="FormatException">The color was not one of the supported formats.</exception>
     public TerminalFormattedStringBuilder WithForegroundColor(string color)
     {
-        var (r, g, b) = color.ToRgb();
-        return WithForegroundColor(r, g, b);
+        var parsed = Color.Parse(color, null);
+        return WithForegroundColor(parsed);
     }
 
     /// <summary>
@@ -267,6 +278,17 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder WithForegroundColor(byte r, byte g, byte b)
     {
         _builder.Append($"\e[38;2;{r};{g};{b}m");
+        return this;
+    }
+
+    /// <summary>
+    /// Set foreground color to a 24 bit RGB color
+    /// </summary>
+    /// <param name="c">An RGB color to use</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithForegroundColor(Color c)
+    {
+        _builder.Append($"\e[38;2;{c.R};{c.G};{c.B}m");
         return this;
     }
 
