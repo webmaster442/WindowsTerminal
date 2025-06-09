@@ -7,8 +7,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-using Webmaster442.WindowsTerminal.Internals;
-
 namespace Webmaster442.WindowsTerminal;
 
 /// <summary>
@@ -128,6 +126,30 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder AppendLine()
     {
         _builder.AppendLine();
+        return this;
+    }
+
+    /// <summary>
+    /// Append a clickable link
+    /// </summary>
+    /// <param name="link">link url</param>
+    /// <param name="text">link display text</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendLink(string link, string text)
+    {
+        _builder.Append($"\e]8;;{link}\e\\{text}\e]8;;\e\\");
+        return this;
+    }
+
+    /// <summary>
+    /// Append a clickable link
+    /// </summary>
+    /// <param name="uri">link url</param>
+    /// <param name="text">link display text</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder AppendLink(Uri uri, string text)
+    {
+        _builder.Append($"\e]8;;{uri}\e\\{text}\e]8;;\e\\");
         return this;
     }
 
