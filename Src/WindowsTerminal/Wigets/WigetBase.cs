@@ -24,7 +24,7 @@ public abstract class WigetBase
         IsShowing = true;
         IsAlternateBuffer = useAlternateBuffer;
         if (IsAlternateBuffer)
-            WindowsTerminal.SwitchToAlternateBuffer();
+            Terminal.SwitchToAlternateBuffer();
         OnShow();
     }
 
@@ -35,7 +35,7 @@ public abstract class WigetBase
     {
         OnHide();
         if (IsAlternateBuffer)
-            WindowsTerminal.SwitchToMainBuffer();
+            Terminal.SwitchToMainBuffer();
         IsShowing = false;
     }
 
