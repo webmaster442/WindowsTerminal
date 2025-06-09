@@ -11,20 +11,20 @@ namespace Webmaster442.WindowsTerminal.SkiaSharp;
 /// <summary>
 /// An implementation of <see cref="ISixelImage"/> using SkiaSharp for image processing.
 /// </summary>
-public sealed class SkiaSharpSixelImage : ISixelImage, IDisposable
+public sealed class SkiaSharpSixelImage : ISixelImage
 {
-    private readonly SKBitmap _data;
+    private readonly SKColor[] _data;
 
     /// <inheritdoc/>
-    public int Width => _data.Width;
+    public int Width { get; private set; }
 
     /// <inheritdoc/>
-    public int Height => _data.Height;
+    public int Height { get; private set; }
 
     /// <inheritdoc/>
     public Color GetColor(int x, int y)
     {
-        var color = _data.GetPixel(x, y);
+        var color = _data[y * Width + x];
         return new Color(color.Red, color.Green, color.Blue);
     }
 
@@ -41,6 +41,8 @@ public sealed class SkiaSharpSixelImage : ISixelImage, IDisposable
 
 
         using var resized = bitmap.Resize(new SKSizeI(calculated.Width, calculated.Height), SKSamplingOptions.Default);
+        Width = resized.Width;
+        Height = resized.Height;
         _data = Octree.Quantize(resized, options.Colors);
         bitmap.Dispose();
     }
@@ -57,12 +59,6 @@ public sealed class SkiaSharpSixelImage : ISixelImage, IDisposable
     public static ISixelImage FromStream(Stream stream, SixelOptions? sixelOptions = null)
     {
         return new SkiaSharpSixelImage(SKBitmap.Decode(stream), sixelOptions ?? SixelOptions.Default);
-    }
-
-    /// <inheritdoc/>
-    public void Dispose()
-    {
-        _data.Dispose();
     }
 
     /// <inheritdoc/>

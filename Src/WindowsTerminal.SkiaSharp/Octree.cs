@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 // --------------------------------------------------------------------------
 
+using System.Runtime.CompilerServices;
 
 using SkiaSharp;
 
@@ -11,28 +12,37 @@ namespace Webmaster442.WindowsTerminal.SkiaSharp;
 //https://raw.githubusercontent.com/bacowan/cSharpColourQuantization/refs/heads/master/ColourQuantization/Octree.cs
 internal static class Octree
 {
-    public static SKBitmap Quantize(SKBitmap bitmap, int colourCount)
+    public static SKColor[] Quantize(SKBitmap bitmap, int colourCount)
     {
         var quantizer = new PaletteQuantizer();
-        for (int x = 0; x < bitmap.Width; x++)
+        var pixels = bitmap.Pixels;
+
+        int w = bitmap.Width;
+        int h = bitmap.Height;
+
+        for (int x = 0; x < w; x++)
         {
-            for (int y = 0; y < bitmap.Height; y++)
+            for (int y = 0; y < h; y++)
             {
-                var colour = bitmap.GetPixel(x, y);
+                var colour = pixels[y * w + x];
                 quantizer.AddColour(colour);
             }
         }
         quantizer.Quantize(colourCount);
-        var ret = new SKBitmap(bitmap.Width, bitmap.Height);
-        for (int x = 0; x < bitmap.Width; x++)
+
+        SKColor[] retPixels = new SKColor[w * h];
+
+        for (int x = 0; x < w; x++)
         {
-            for (int y = 0; y < bitmap.Height; y++)
+            for (int y = 0; y < h; y++)
             {
-                var colour = quantizer.GetQuantizedColour(bitmap.GetPixel(x, y));
-                ret.SetPixel(x, y, colour);
+                var orig = pixels[y * w + x];
+                var colour = quantizer.GetQuantizedColour(orig);
+                retPixels[y * w + x] = colour;
             }
         }
-        return ret;
+
+        return retPixels;
     }
 
     private class PaletteQuantizer
@@ -60,9 +70,20 @@ internal static class Octree
             _levelNodes[level].Add(node);
         }
 
+        private readonly Dictionary<SKColor, SKColor> _cache = new();
+
         public SKColor GetQuantizedColour(SKColor colour)
         {
-            return _root.GetColour(colour, 0);
+            if (_cache.TryGetValue(colour, out SKColor value))
+            {
+                return value;
+            }
+            else
+            {
+                value = _root.GetColour(colour, 0);
+                _cache.Add(colour, value);
+                return value;
+            }
         }
 
         public void Quantize(int colourCount)
@@ -106,7 +127,7 @@ internal static class Octree
         private SKColor Colour { get; set; }
         private int Count { get; set; }
 
-        public int ChildrenCount => _children.Count(c => c != null);
+        public int ChildrenCount { get; private set; }
 
         public Node(PaletteQuantizer parent)
         {
@@ -117,11 +138,12 @@ internal static class Octree
         {
             if (level < 8)
             {
-                var index = GetIndex(colour, level);
+                var index = Node.GetIndex(colour, level);
                 if (_children[index] == null)
                 {
                     var newNode = new Node(_parent);
                     _children[index] = newNode;
+                    ChildrenCount++;
                     _parent.AddLevelNode(newNode, level);
                 }
                 _children[index].AddColour(colour, level + 1);
@@ -141,43 +163,39 @@ internal static class Octree
             }
             else
             {
-                var index = GetIndex(colour, level);
+                var index = Node.GetIndex(colour, level);
                 return _children[index].GetColour(colour, level + 1);
             }
         }
 
-        private byte GetIndex(SKColor colour, int level)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int GetIndex(SKColor colour, int level)
         {
-            byte ret = 0;
-            var mask = Convert.ToByte(0b10000000 >> level);
-            if ((colour.Red & mask) != 0)
-            {
-                ret |= 0b100;
-            }
-            if ((colour.Green & mask) != 0)
-            {
-                ret |= 0b010;
-            }
-            if ((colour.Blue & mask) != 0)
-            {
-                ret |= 0b001;
-            }
-            return ret;
+
+            int shift = 7 - level;
+            byte mask = (byte)(1 << shift);
+
+
+            int index = (colour.Red & mask) >> shift |
+                        (((colour.Green & mask) >> shift) << 1) |
+                        (((colour.Blue & mask) >> shift) << 2);
+
+            return index;
         }
 
         public void Merge()
         {
-            Colour = Average(_children.Where(c => c != null).Select(c => new Tuple<SKColor, int>(c.Colour, c.Count)));
+            Colour = Average(_children.Where(c => c != null).Select(c => (c.Colour, c.Count)));
             Count = _children.Sum(c => c?.Count ?? 0);
             _children = new Node[8];
         }
 
-        private static SKColor Average(IEnumerable<Tuple<SKColor, int>> colours)
+        private static SKColor Average(IEnumerable<(SKColor color, int count)> colours)
         {
-            var totals = colours.Sum(c => c.Item2);
-            return new SKColor(red: (byte)(colours.Sum(c => c.Item1.Red * c.Item2) / totals),
-                               green: (byte)(colours.Sum(c => c.Item1.Green * c.Item2) / totals),
-                               blue: (byte)(colours.Sum(c => c.Item1.Blue * c.Item2) / totals),
+            var totals = colours.Sum(c => c.count);
+            return new SKColor(red: (byte)(colours.Sum(c => c.color.Red * c.count) / totals),
+                               green: (byte)(colours.Sum(c => c.color.Green * c.count) / totals),
+                               blue: (byte)(colours.Sum(c => c.color.Blue * c.count) / totals),
                                alpha: 255);
         }
     }
