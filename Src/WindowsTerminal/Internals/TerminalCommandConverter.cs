@@ -11,7 +11,7 @@ using Webmaster442.WindowsTerminal.Fragments;
 
 namespace Webmaster442.WindowsTerminal.Internals;
 
-internal class TerminalCommandConverter : JsonConverter<TerminalCommand>
+internal sealed class TerminalCommandConverter : JsonConverter<TerminalCommand>
 {
     public override TerminalCommand? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

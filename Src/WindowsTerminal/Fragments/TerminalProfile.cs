@@ -98,7 +98,15 @@ public record class TerminalProfile
     /// This is the name of the profile that will be displayed in the dropdown menu.
     /// </summary>
     [JsonPropertyName("name")]
-    public required string Name { get; init; }
+    public required string Name
+    {
+        get => field;
+        init
+        {
+            field = value;
+            Guid = GuidGenerator.GenerateByName(value);
+        }
+    }
 
     /// <summary>
     /// This is the executable used in the profile.
@@ -210,6 +218,12 @@ public record class TerminalProfile
     /// </summary>
     [JsonPropertyName("font")]
     public TerminalFont? Font { get; init; }
+
+    /// <summary>
+    /// Profiles can use a GUID as a unique identifier. To make a profile your default profile, it needs a GUID for the defaultProfile global setting.
+    /// </summary>
+    [JsonPropertyName("guid")]
+    public Guid Guid { get; init; }
 
     /// <summary>
     /// Creates a new instance of the TerminalProfile class.

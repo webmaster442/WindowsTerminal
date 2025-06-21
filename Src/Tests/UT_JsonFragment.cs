@@ -33,7 +33,8 @@ public class UT_JsonFragment
                   "commandline": "test.exe",
                   "startingDirectory": "%USERPROFILE%",
                   "backgroundImageOpacity": 1,
-                  "opacity": 100
+                  "opacity": 100,
+                  "guid": "{d693da45-ba2e-5315-ae7a-91e034ebd0e3}"
                 }
               ],
               "schemes": [],
@@ -71,7 +72,8 @@ public class UT_JsonFragment
                   "backgroundImageOpacity": 1,
                   "backgroundImageAlignment": "bottomRight",
                   "backgroundImageStretchMode": "none",
-                  "opacity": 100
+                  "opacity": 100,
+                  "guid": "{d693da45-ba2e-5315-ae7a-91e034ebd0e3}"
                 }
               ],
               "schemes": [],

@@ -14,7 +14,7 @@ namespace Webmaster442.WindowsTerminal.Internals;
     ReadCommentHandling = JsonCommentHandling.Skip,
     WriteIndented = true,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-    Converters = [typeof(TerminalCommandConverter)],
+    Converters = [typeof(TerminalCommandConverter), typeof(GuidToRegistryStringConverter)],
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(TerminalFragment))]
 [JsonSerializable(typeof(TerminalBackgroundImageAlignment))]
