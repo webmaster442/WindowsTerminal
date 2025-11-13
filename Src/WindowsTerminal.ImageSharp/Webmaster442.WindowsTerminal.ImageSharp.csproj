@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
     <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -19,14 +19,14 @@
     <PackageTags>windows;terminal;sixel;image;display;terminal;console;ImageSharp</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>4.0.0</Version>
+    <Version>4.1.0</Version>
     <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.*" />
-    <PackageReference Include="Webmaster442.WindowsTerminal" Version="4.0.*" />
+    <PackageReference Include="Webmaster442.WindowsTerminal" Version="4.1.*" />
   </ItemGroup>
 
   <ItemGroup>
