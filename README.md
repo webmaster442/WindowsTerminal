@@ -8,8 +8,12 @@ A Windows Terminal Interaction libary
 
 Via NuGet: https://www.nuget.org/packages/Webmaster442.WindowsTerminal
 
-Sixel support addon package (Uses SixLabors.ImageSharp): https://www.nuget.org/packages/Webmaster442.WindowsTerminal.Sixel
+Sixel support requires one of the following addon packages:
 
+* https://www.nuget.org/packages/Webmaster442.WindowsTerminal.ImageSharp/ - Uses SixLabors.ImageSharp
+* https://www.nuget.org/packages/Webmaster442.WindowsTerminal.SkiaSharp/ - Uses SkiaSharp
+
+Two flavors are provided to allow users to pick their preferred image processing library without forcing a dependency on one or the other.
 
 Via .NET Cli:
 
@@ -17,8 +21,16 @@ Via .NET Cli:
 dotnet add package Webmaster442.WindowsTerminal
 ```
 
+For sixel graphics support, add one of the following packages:
+
 ```bash
-dotnet add package Webmaster442.WindowsTerminal.Sixel
+dotnet add package Webmaster442.WindowsTerminal.ImageSharp
+```
+
+or
+
+```bash
+dotnet add package Webmaster442.WindowsTerminal.SkiaSharp
 ```
 
 ## Features

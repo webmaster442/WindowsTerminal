@@ -19,7 +19,7 @@
     <PackageTags>windows;terminal;sixel;image;display;terminal;console;ImageSharp</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>4.1.0</Version>
+    <Version>4.1.1</Version>
     <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>

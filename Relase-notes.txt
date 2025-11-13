@@ -1,0 +1,50 @@
+# 4.1.1
+
+ - Corrected readme mistakes
+ - Added release notes
+ 
+# 4.1.0
+
+ - .NET 10 support
+ 
+# 4.0
+
+ - Reworked Sixel support. Sixel support is available via Webmaster442.WindowsTerminal.SkiaSharp or the Webmaster442.WindowsTerminal.ImageSharp package, depending on the backend that you want to use for image decoding.
+ - Added SixelEncoder class that exposes the Sixel encoder
+ - New overrides in the TerminalFormattedStringBuilder that accept a Color instance
+ - Added AppendLink function to TerminalFormattedStringBuilder
+
+# 3.0.0
+
+
+ - Colors can now be specified in hsl() and rgb() CSS format in the TerminalFormattedStringBuilder.WithForegroundColor(string color) and TerminalFormattedStringBuilder.WithBackgroundColor(string color) methods.
+ - WindowsTerminal class now has a GetPaletteColor(int index) method, that returns the color of the specified palette index.
+ - Added support for actions in Fragment extensions. The TerminalCommand class has some predefined actions.
+ - Added more themes into the TerminalSchemes class
+ - Sixel.ImageToSixel: Image is now properly resized, instead of cropped, if the image is larger than the specified size.
+ - Added Pager widget, that can diplay a large amount of text in a paginated way.
+ - Added ProgressBar widget, that can display a progress bar.
+- Added Sixel.GetTerminalWindowSize() method, that returns the current terminal window size in pixels.
+  - Sixel.ImageToSixel: Removed versions where the maxSize can be specied as a tuple. Use the new Sixel.ImageToSixel variants, that accept a SixelOptions instead.
+
+# 2.0.0
+
+- Added .NET 8 support
+- Libary is now AOT compatible
+- TerminalProfile class now has static factory methods for creating profiles for Anaconda3, Cmder, Cygwin, Far and Gith Bash
+- TerminalFragment class now has a ToJson() method that converts the fragment to a JSON string.
+- Nullability changes of TerminalProfile class: Icon, TabTitle, ColorScheme and BackgroundImage are now nullable and by default have null values.
+- TerminalProfile class new properties:
+ - ShowMarksOnScrollbar, AutoMarkPrompts for Shell integration support
+ - Font to specify font settings
+- Sixel image support via the Webmaster442.Windowsterminal.Sixel package. This package depends on Sixlabors.ImageSharp
+
+# 1.1.1
+
+- Fixes Json fragment generation of enum values
+
+# 1.1.0
+
+- Added char overload for Append
+- Added object overload for Append
+- WithBackgroundColor and WithForegroundColor now accept ConsoleColor as well

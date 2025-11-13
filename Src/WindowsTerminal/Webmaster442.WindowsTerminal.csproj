@@ -19,7 +19,7 @@
     <PackageTags>windows;terminal;fragment;extension;ANSI;Escape;Codes;Nerd;Fonts;DECPS</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>4.1.0</Version>
+    <Version>4.1.1</Version>
     <IsAotCompatible>True</IsAotCompatible>
     <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
@@ -47,5 +47,19 @@
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="9.0.*" Condition="'$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
+
+
+
+  <Target Name="PreparePackageReleaseNotesFromFile" BeforeTargets="GenerateNuspec">
+    <ReadLinesFromFile File="..\..\Relase-notes.txt" >
+      <Output TaskParameter="Lines" ItemName="ReleaseNoteLines"/>
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <PackageReleaseNotes>@(ReleaseNoteLines, '%0a')</PackageReleaseNotes>
+    </PropertyGroup>
+  </Target>
+
+
+
 
 </Project>
