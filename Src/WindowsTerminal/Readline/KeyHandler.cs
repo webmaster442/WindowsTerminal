@@ -22,6 +22,12 @@ public class KeyHandler
     private int _completionStart;
     private int _completionsIndex;
 
+    internal void SetCursorPos(int pos)
+    {
+        _cursorPos = pos;
+        _consoleDriver.SetCursorPosition(pos, _consoleDriver.CursorTop);
+    }
+
     /// <summary>
     /// Determines whether the current cursor position is at the start of a line.
     /// </summary>

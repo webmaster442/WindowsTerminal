@@ -20,11 +20,11 @@ public class UT_Color
     public void ToRrbParsesSupported(string rgb, byte r, byte g, byte b)
     {
         var result = Color.Parse(rgb, null);
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result.R, Is.EqualTo(r));
             Assert.That(result.G, Is.EqualTo(g));
             Assert.That(result.B, Is.EqualTo(b));
-        });
+        }
     }
 }
