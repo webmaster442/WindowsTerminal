@@ -186,19 +186,34 @@ public class KeyHandler
     /// available characters will be deleted.</param>
     protected void Backspace(int count)
     {
+        if (count <= 0)
+            return;
+
         if (count > _cursorPos)
             count = _cursorPos;
 
         MoveCursorLeft(count);
+
         int index = _cursorPos;
+
         _text.Remove(index, count);
-        string replacement = _text.ToString()[index..];
+
+        int tailLength = _text.Length - index;
+        string tail = tailLength > 0 ? _text.ToString(index, tailLength) : string.Empty;
+
         int left = _consoleDriver.CursorLeft;
         int top = _consoleDriver.CursorTop;
-        string spaces = new(' ', count);
-        _consoleDriver.Write(string.Format("{0}{1}", replacement, spaces));
+
+        if (tail.Length > 0)
+            _consoleDriver.Write(tail);
+
+        if (count > 0)
+            _consoleDriver.Write(new string(' ', count));
+
         _consoleDriver.SetCursorPosition(left, top);
         _cursorLimit -= count;
+        if (_cursorLimit < 0)
+            _cursorLimit = 0;
     }
 
     /// <summary>

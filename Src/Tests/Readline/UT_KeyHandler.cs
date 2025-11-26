@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using Webmaster442.WindowsTerminal.Readline;
+﻿using Webmaster442.WindowsTerminal.Readline;
 
 namespace Webmaster442.WindowsTerminal.Tests.Readline;
 
@@ -59,6 +55,7 @@ public class UT_KeyHandler
 
     private TestConsole _console;
     private List<string> _history;
+    private TestAutoCompleteHandler _autoCompleteHandler;
     private KeyHandler _sut;
 
     private void SendInput(string text)
@@ -85,16 +82,25 @@ public class UT_KeyHandler
     {
         _console = new TestConsole();
         _history = [.. new string[] { "dotnet run", "git init", "clear" }];
-        _sut = new KeyHandler(_history, new TestAutoCompleteHandler());
+        _autoCompleteHandler = new TestAutoCompleteHandler();
+        _sut = new KeyHandler(_history, _autoCompleteHandler);
         _sut.SetConsoleDriver(_console);
         SendInput("Hello");
     }
 
     [Test]
-    public void Handle_WritesRegularChars()
+    public void Handle_Write_EndOfLine()
     {
         SendInput(" World");
         Assert.That(_sut.Text, Is.EqualTo("Hello World"));
+    }
+
+    [Test]
+    public void Handle_Write_MiddleOfLine()
+    {
+        SendInput(ConsoleKey.LeftArrow, ConsoleModifiers.None);
+        SendInput("y ");
+        Assert.That(_sut.Text, Is.EqualTo("Helly o"));
     }
 
     [TestCase(ConsoleKey.Backspace, ConsoleModifiers.None)]
@@ -170,8 +176,10 @@ public class UT_KeyHandler
     [TestCase(ConsoleKey.B, ConsoleModifiers.Control, 1, 0)]
     [TestCase(ConsoleKey.RightArrow, ConsoleModifiers.None, 0, 1)]
     [TestCase(ConsoleKey.RightArrow, ConsoleModifiers.None, -1, 5)]
+    [TestCase(ConsoleKey.RightArrow, ConsoleModifiers.None, 5, 5)]
     [TestCase(ConsoleKey.F, ConsoleModifiers.Control, 0, 1)]
     [TestCase(ConsoleKey.F, ConsoleModifiers.Control, -1, 5)]
+    [TestCase(ConsoleKey.F, ConsoleModifiers.Control, 5, 5)]
     public void Handle_Move(ConsoleKey key,
                             ConsoleModifiers modifiers,
                             int startPos,
@@ -184,4 +192,102 @@ public class UT_KeyHandler
         Assert.That(_console.CursorLeft, Is.EqualTo(expectedPosition));
     }
 
+
+    [TestCase(ConsoleKey.L, ConsoleModifiers.Control)]
+    [TestCase(ConsoleKey.Escape, ConsoleModifiers.None)]
+    public void Handle_ClearLine(ConsoleKey key, ConsoleModifiers modifiers)
+    {
+        SendInput(key, modifiers);
+        Assert.That(_sut.Text, Is.EqualTo(string.Empty));
+    }
+
+    [Test]
+    public void Handle_CutTextToTheStartOfLine()
+    {
+        SendInput(ConsoleKey.LeftArrow, ConsoleModifiers.None);
+        SendInput(ConsoleKey.U, ConsoleModifiers.Control);
+        Assert.That(_sut.Text, Is.EqualTo("o"));
+    }
+
+    [Test]
+    public void Handle_CutTextToTheEndOfLine()
+    {
+        SendInput(ConsoleKey.LeftArrow, ConsoleModifiers.None);
+        SendInput(ConsoleKey.K, ConsoleModifiers.Control);
+        Assert.That(_sut.Text, Is.EqualTo("Hell"));
+    }
+
+    [Test]
+    public void Handle_CutPreviousWord()
+    {
+        SendInput(" World");
+        SendInput(ConsoleKey.W, ConsoleModifiers.Control);
+        Assert.That(_sut.Text, Is.EqualTo("Hello "));
+    }
+
+    [TestCase(ConsoleKey.UpArrow, ConsoleModifiers.None)]
+    [TestCase(ConsoleKey.P, ConsoleModifiers.Control)]
+    public void Handle_PreviousHistory(ConsoleKey key, ConsoleModifiers modifiers)
+    {
+        var expectedHistory = _history.AsEnumerable().Reverse();
+        List<string> actualHistory = new();
+        foreach (var historyItem in _history)
+        {
+            SendInput(key, modifiers);
+            actualHistory.Add(_sut.Text);
+        }
+
+        Assert.That(actualHistory, Is.EqualTo(expectedHistory));
+    }
+
+    [TestCase(ConsoleKey.DownArrow, ConsoleModifiers.None)]
+    [TestCase(ConsoleKey.N, ConsoleModifiers.Control)]
+    public void Handle_NextHistory(ConsoleKey key, ConsoleModifiers modifiers)
+    {
+        foreach (var historyItem in _history)
+        {
+            SendInput(ConsoleKey.UpArrow, ConsoleModifiers.None);
+        }
+
+        List<string> actualHistory = new();
+        foreach (var historyItem in _history)
+        {
+            actualHistory.Add(_sut.Text);
+            SendInput(key, modifiers);
+        }
+
+        Assert.That(actualHistory, Is.EqualTo(_history));
+    }
+
+
+    [Test]
+    public void Handle_Tab()
+    {
+        SendInput(ConsoleKey.Escape, ConsoleModifiers.None);
+        SendInput("Hi ");
+
+        var suggestions = _autoCompleteHandler.GetSuggestions("", 0);
+
+        foreach (var suggestion in suggestions)
+        {
+            SendInput(ConsoleKey.Tab, ConsoleModifiers.None);
+            Assert.That(_sut.Text, Is.EqualTo($"Hi {suggestion}"));
+        }
+    }
+
+    [Test]
+    public void Test_ShiftTab()
+    {
+        SendInput(ConsoleKey.Escape, ConsoleModifiers.None);
+        SendInput("Hi ");
+        SendInput(ConsoleKey.Tab, ConsoleModifiers.None);
+
+        var suggestions = _autoCompleteHandler.GetSuggestions("", 0).Reverse();
+
+        foreach (var suggestion in suggestions)
+        {
+            SendInput(ConsoleKey.Tab, ConsoleModifiers.Shift);
+            Assert.That(_sut.Text, Is.EqualTo($"Hi {suggestion}"));
+        }
+    }
 }
