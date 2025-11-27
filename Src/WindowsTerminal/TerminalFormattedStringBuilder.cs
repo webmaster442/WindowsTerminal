@@ -250,16 +250,6 @@ public sealed class TerminalFormattedStringBuilder
     }
 
     /// <summary>
-    /// Set text to bold
-    /// </summary>
-    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
-    public TerminalFormattedStringBuilder WithBold()
-    {
-        _builder.Append("\e[1m");
-        return this;
-    }
-
-    /// <summary>
     /// Set foreground color to a standard color
     /// </summary>
     /// <param name="color">Color to use</param>
@@ -349,6 +339,16 @@ public sealed class TerminalFormattedStringBuilder
     }
 
     /// <summary>
+    /// Set text to bold
+    /// </summary>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithBold()
+    {
+        _builder.Append("\e[1m");
+        return this;
+    }
+
+    /// <summary>
     /// Append a nerd font icon to the output. Terminal needs to have a nerd font installed
     /// Cheat sheet: https://www.nerdfonts.com/cheat-sheet
     /// </summary>
@@ -357,6 +357,27 @@ public sealed class TerminalFormattedStringBuilder
     public TerminalFormattedStringBuilder WithNerdFont(int nerdFont)
     {
         _builder.Append(char.ConvertFromUtf32(nerdFont));
+        return this;
+    }
+
+    /// <summary>
+    /// Appends a double-width line control sequence to the formatted string.
+    /// </summary>
+    public TerminalFormattedStringBuilder WithDoubleWidthLine()
+    {
+        _builder.Append($"\e#6");
+        return this;
+    }
+
+    /// <summary>
+    /// Appends the specified text as a double-height line to the terminal output and returns the current builder
+    /// instance.
+    /// </summary>
+    /// <param name="line">The text to be rendered as a double-height line.</param>
+    /// <returns>A TerminalFormattedStringBuilder to chain formatting</returns>
+    public TerminalFormattedStringBuilder WithDoubleHeightLine(string line)
+    {
+        _builder.Append($"\e#3{line}\r\n\e#4{line}").AppendLine();
         return this;
     }
 

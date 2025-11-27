@@ -19,7 +19,7 @@
     <PackageTags>windows;terminal;fragment;extension;ANSI;Escape;Codes;Nerd;Fonts;DECPS</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>4.1.1</Version>
+    <Version>4.2.0</Version>
     <IsAotCompatible>True</IsAotCompatible>
     <OutputPath>..\..\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>

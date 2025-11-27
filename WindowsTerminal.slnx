@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Changelog.md" />
+    <File Path="README.md" />
+    <File Path="WindowsTerminal.sln.licenseheader" />
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="Demo/Demo.csproj" />
+    <Project Path="Src/Tests/Webmaster442.WindowsTerminal.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Workflows/">
+    <File Path=".github/workflows/dotnet9.yml" />
+  </Folder>
+  <Project Path="Src/WindowsTerminal.ImageSharp/Webmaster442.WindowsTerminal.ImageSharp.csproj" />
+  <Project Path="Src/WindowsTerminal.SkiaSharp/Webmaster442.WindowsTerminal.SkiaSharp.csproj" />
+  <Project Path="Src/WindowsTerminal/Webmaster442.WindowsTerminal.csproj" />
+</Solution>

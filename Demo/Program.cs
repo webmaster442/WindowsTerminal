@@ -25,6 +25,8 @@ Colors24BitDemo();
 
 WaitForKeyPress();
 
+DoubleWithDoubleHeight();
+
 WaitForKeyPress();
 
 MusicDemo();
@@ -48,6 +50,23 @@ WaitForKeyPress();
 ProgrssbarDemo();
 
 WaitForKeyPress();
+
+void DoubleWithDoubleHeight()
+{
+    Console.Clear();
+    Console.WriteLine("Double width and double height demo");
+    Console.WriteLine(builder
+        .New()
+        .WithDoubleWidthLine()
+        .Append("Double width")
+        .ResetFormat()
+        .AppendLine());
+    Console.WriteLine(builder
+        .New()
+        .WithForegroundColor(ConsoleColor.Magenta)
+        .WithDoubleHeightLine("Double Height")
+        .ResetFormat());
+}
 
 void GetPaletteColors()
 {
