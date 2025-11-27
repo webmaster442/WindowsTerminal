@@ -1,4 +1,4 @@
-﻿namespace Webmaster442.WindowsTerminal.Readline;
+﻿namespace Webmaster442.WindowsTerminal.GnuLike;
 
 internal interface IConsole
 {

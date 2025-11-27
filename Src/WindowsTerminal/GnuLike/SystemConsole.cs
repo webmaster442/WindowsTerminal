@@ -1,4 +1,4 @@
-﻿namespace Webmaster442.WindowsTerminal.Readline;
+﻿namespace Webmaster442.WindowsTerminal.GnuLike;
 
 /// <summary>
 /// Provides an implementation of the <see cref="IConsole"/> interface that interacts with the system console.

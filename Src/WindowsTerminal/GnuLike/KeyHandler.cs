@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Webmaster442.WindowsTerminal.Readline;
+namespace Webmaster442.WindowsTerminal.GnuLike;
 
 /// <summary>
 /// Provides interactive command-line input handling, including cursor movement, text editing, command history

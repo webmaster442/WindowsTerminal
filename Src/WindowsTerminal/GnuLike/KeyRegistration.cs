@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Webmaster442.WindowsTerminal.Readline;
+namespace Webmaster442.WindowsTerminal.GnuLike;
 
 /// <summary>
 /// Represents a combination of a console key and optional modifier keys used to trigger an action.

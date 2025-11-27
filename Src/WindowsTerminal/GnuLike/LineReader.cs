@@ -1,8 +1,9 @@
-﻿namespace Webmaster442.WindowsTerminal.Readline;
+﻿using Webmaster442.WindowsTerminal.Readline;
+
+namespace Webmaster442.WindowsTerminal.GnuLike;
 
 /// <summary>
-/// Provides functionality for reading user input from the console, including support for command history, prompts, and
-/// optional auto-completion.
+/// Provides GNU Readline-like functionality for reading lines of input from the console, including support for auto-completion and history.
 /// </summary>
 /// <remarks>LineReader enables interactive console input scenarios, such as command-line interfaces, by
 /// maintaining a history of entered lines and supporting features like password masking and auto-completion. Instances

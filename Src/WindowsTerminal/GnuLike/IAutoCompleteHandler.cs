@@ -1,4 +1,4 @@
-﻿namespace Webmaster442.WindowsTerminal.Readline;
+﻿namespace Webmaster442.WindowsTerminal.GnuLike;
 
 /// <summary>
 /// Defines a handler that provides auto-complete suggestions for text input, supporting configurable word separators.

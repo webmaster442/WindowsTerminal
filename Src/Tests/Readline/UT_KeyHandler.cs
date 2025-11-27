@@ -1,4 +1,4 @@
-﻿using Webmaster442.WindowsTerminal.Readline;
+﻿using Webmaster442.WindowsTerminal.GnuLike;
 
 namespace Webmaster442.WindowsTerminal.Tests.Readline;
 
